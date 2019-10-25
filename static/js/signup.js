@@ -59,18 +59,20 @@ $("#formid").submit(function(e) {
              {
                alert("Error");
              }
+
+
              else
              {
-             alert(data.val);
+          //   alert(data.val+ " "+data.nonfield);
             $("#formid :input:not(input[type='hidden'],input[type='submit'])").each(function ()
             {
            var current = $(this).parent();
            var current_name = $(this).attr('name');
            $.each(data.dict1, function (index, value)
            {
-
             if (current_name == index)
      {
+         current.next().html("");
        current.after("<div class='error'></div>");
        current.next().html(value);
 ;
@@ -125,6 +127,9 @@ $("#loginform").submit(function(e) {
         },
         // handle a non-successful response
         error : function(xhr,errmsg,errors) {
+
+             alert("Login Failed");
+
         console.log(xhr.status + ": " + xhr.responseText);
         console.log(errors)// provide a bit more info about the error to the console
         }

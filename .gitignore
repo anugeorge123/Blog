@@ -1,0 +1,12 @@
+blogproject/local.py
+.idea/*
+*.idea
+*.py[co]
+media/*
+__pycache__/*
+*/__pycache__
+static/*
+.vscode/
+# python byte code files
+*.pyc
+token.pickle

@@ -25,12 +25,14 @@ class Home(View):
         form = Signupform(request.POST)
         if form.is_valid():
                try:
-
+                    print(self.request.POST)
                     name = form.cleaned_data['name']
                     address = form.cleaned_data['address']
                     email = form.cleaned_data['email']
                     pwd = form.cleaned_data['pwd']
                     cpwd = form.cleaned_data['cpwd']
+                    print("name----->", name,"email------>" , email)
+
 
                     if pwd == cpwd :
                         obj = Realuser.objects.create_user(is_superuser="0", username=name, address=address, email=email, password=pwd)
@@ -39,16 +41,18 @@ class Home(View):
 
                     else:
                         dict1['val'] = "failure"
-                    # return HttpResponse(json.dumps(dict1), content_type="application/json")
+
                except Exception as e:
                     print("Error: ", e)
                     dict1['result'] = "Error"
 
-               # return HttpResponse(json.dumps(dict1), content_type="application/json")
+
         else:
             print("form eroors: ---------------->", form.errors)
             dict1['val'] = "Error in forms"
             dict1['dict1']=form.errors
+            print("non field-----------", form.non_field_errors())
+            dict1['nonfield'] = form.non_field_errors()
         return HttpResponse(json.dumps(dict1), content_type="application/json")
 
 class Login(View):
@@ -56,21 +60,26 @@ class Login(View):
     # def get(self, request):
     #     login = LoginForm()
     #     return render(request, "index.html",{'log': login})
-    @login_required
+    # @login_required
+
     def post(self, request):
+        print("-------------------------------------------------------->login")
         dict2 = {}
         login = LoginForm(request.POST)
         if login.is_valid():
             uname = login.cleaned_data['uname']
             pwd = login.cleaned_data['pwd']
             print("uname: ", uname, "password: ", pwd)
+
+
             try:
+
                 obj = Realuser.objects.get(username=uname)
                 u = obj.username
                 p = obj.password
                 matchcheck = check_password(pwd, obj.password)
                 if matchcheck and uname == u:
-                    print("----------------------------------------->",matchcheck)
+                    print("----------------------------------------->", matchcheck)
                     dict2['val'] = "success"
 
                 else:

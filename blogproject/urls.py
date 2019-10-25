@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blogapp.urls')),
     url(r'^accounts/', include('allauth.urls')),
+    # url('djrichtextfield/', include('djrichtextfield.urls'))
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
