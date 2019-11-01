@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="page-top-section set-bg" data-setbg="{% static 'img/page-top-bg.jpg' %}">
+		<div class="container">
+			<h2>Recipe</h2>
+		</div>
+	</section>
+
+<div class="search-form-section">
+		<div class="sf-warp">
+			<div class="container">
+				<form class="big-search-form">
+					<select>
+						<option>All Recipes Categories</option>
+						<option>Pizza</option>
+						<option>Salads</option>
+						<option>Desserts</option>
+						<option>Side Dishes</option>
+					</select>
+					<select>
+						<option>All Ingredients</option>
+						<option>Breakfast</option>
+						<option>Lunch</option>
+						<option>Dinner</option>
+					</select>
+					<input type="text" placeholder="Search Receipies">
+					<button class="bsf-btn">Search</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<!-- Recipe big view -->
+	<div class="recipe-view-section">
+	<!--	<h2>{{single_recipe.recipe}}</h2>-->
+
+		<div class="rv-warp set-bg" data-setbg="{{single_recipe.img.url}}"></div>
+	</div>
+<!--
+	<!-- Recipe details section -->
+	<section class="recipe-details-section">
+		<div class="container">
+			<div class="recipe-meta">
+				<div class="racipe-cata">
+					<span>For Begginers</span>
+				</div>
+				<h2>{{single_recipe.recipe}}{{single_recipe.id}}</h2>
+
+				<div class="recipe-date">{{single_recipe.date}}</div>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star is-fade"></i>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="recipe-filter-warp">
+						<div class="filter-top">
+							<div class="filter-top-text">
+								<p>Prep : {{single_recipe.prep}}</p>
+								<p>Cook : {{single_recipe.cook}}</p>
+								<p>Yields : {{single_recipe.yields}}</p>
+							</div>
+						</div>
+						<!-- recipe filter form -->
+						<div class="filter-form-warp">
+							<h2>Ingredients</h2>
+							{% for item_ingredients in single_recipe.ingredients.all %}
+
+							<form class="filter-form">
+								<div class="check-warp">
+									<input type="checkbox" id="one">
+									<label for="one">{{item_ingredients.ingredients}}</label>
+								</div>
+
+							</form>
+
+							{% endfor %}
+
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-7">
+					<ul class="recipe-info-list">
+						<li>
+							<h2>01.</h2>
+							<p>{{single_recipe.steps| safe}}</p>
+						</li>
+<!--						<li>-->
+<!--							<h2>02.</h2>-->
+<!--							<p>Sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus.</p>-->
+<!--						</li>-->
+<!--						<li>-->
+<!--							<h2>03.</h2>-->
+<!--							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum</p>-->
+<!--						</li>-->
+<!--						<li>-->
+<!--							<h2>04.</h2>-->
+<!--							<p>Sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis.</p>-->
+<!--						</li>-->
+<!--						<li>-->
+<!--							<h2>05.</h2>-->
+<!--							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magni.</p>-->
+<!--						</li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Recipe details section end -->
+
+
+<!--<section class="comment-section spad pt-0">-->
+<!--		<div class="container">-->
+<!--			<h4>Leave a comment</h4>-->
+<!--			<form class="comment-form" method ="post" action="{% url 'comments'%}">-->
+<!--				{% csrf_token %}-->
+
+<!--				<div class="row">-->
+<!--					<div class="col-md-6">-->
+<!--						<input type="text" placeholder="Name" name="txt_name">-->
+<!--					</div>-->
+<!--					<div class="col-md-6">-->
+<!--						<input type="text" placeholder="E-mail" name="txt_email">-->
+<!--					</div>-->
+<!--					<div class="col-md-12">-->
+<!--						<input type="text" placeholder="Subject" name="txt_subject">-->
+<!--						<textarea placeholder="Message" name="txt_message"></textarea>-->
+<!--						<button class="site-btn">Send</button>-->
+<!--						<input type="hidden" name="txt_recipe" value="{{single_recipe.id}}">-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</form>-->
+<!--		</div>-->
+<!--	</section>-->
+
+
+
+
+
+
+
+	<!-- Comment section -->
+	<section class="comment-section spad pt-0">
+		<div class="container">
+			<h4>Leave a comment</h4>
+			<form class="comment-form"  id="commentform">
+				{% csrf_token %}
+
+				<div class="row">
+					<div class="col-md-6">
+						<input type="text" placeholder="Name" name="txt_name">
+					</div>
+					<div class="col-md-6">
+						<input type="text" placeholder="E-mail" name="txt_email">
+					</div>
+					<div class="col-md-12">
+						<input type="text" placeholder="Subject" name="txt_subject">
+						<textarea placeholder="Message" name="txt_message"></textarea>
+						<button type="submit" class="site-btn">Send</button>
+						<input type="hidden" name="txt_recipe" value="{{single_recipe.id}}">
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!-- Comment section -->
+{% endblock%}
+
+
+

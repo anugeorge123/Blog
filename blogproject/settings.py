@@ -18,6 +18,15 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.ionos.com'
+EMAIL_HOST_USER = 'albin@cloudaven.com'
+EMAIL_HOST_PASSWORD = 'Albin@123'
+EMAIL_PORT = 587
+
+
+
 INSTALLED_APPS = [
 
     'django.contrib.admin',
@@ -33,7 +42,41 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'ckeditor'
 ]
+
+
+CKEDITOR_CONFIGS = {
+    # django-ckeditor defaults
+    'default': {
+        # Editor Width Adaptation
+        'width':'auto',
+        'height':'250px',
+        # tab key conversion space number
+        'tabSpaces': 4,
+        # Toolbar Style
+        'toolbar': 'Custom',
+        # Toolbar buttons
+        'toolbar_Custom': [
+            # Emotional Code Block
+            ['Smiley', 'CodeSnippet'],
+            # Font Style
+            ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
+            # Font color
+            ['TextColor', 'BGColor'],
+            # Link link
+            ['Link', 'Unlink'],
+            # List of items
+            ['NumberedList', 'BulletedList'],
+            # Maximization
+            ['Maximize']
+        ],
+        # Add Code Block Plug-ins
+        'extraPlugins': ','.join(['codesnippet']),
+    }
+}
+
+
 
 AUTH_USER_MODEL = 'blogapp.Realuser'
 
@@ -155,6 +198,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+
+
 try:
     from .local import *
 except:

@@ -27,6 +27,7 @@ $.ajaxSetup({
 //alert("helloo");
 //});
 $("#formid").submit(function(e) {
+//alert("signup");
     var url = $('#url').val();
     e.preventDefault();
     var formData = new FormData(this);
@@ -39,14 +40,12 @@ $("#formid").submit(function(e) {
     processData: false,
         success : function(data)
         {
+            alert("inside successs fn");
             console.log(data);
-
-
             if(data.pass)
             {
-            alert(data.pass);
+                 alert(data.pass);
             }
-
             if (data.val =="Success")
              {
                alert("Signup done successfully");
@@ -63,29 +62,23 @@ $("#formid").submit(function(e) {
 
              else
              {
-          //   alert(data.val+ " "+data.nonfield);
-            $("#formid :input:not(input[type='hidden'],input[type='submit'])").each(function ()
-            {
-           var current = $(this).parent();
-           var current_name = $(this).attr('name');
-           $.each(data.dict1, function (index, value)
-           {
-            if (current_name == index)
-     {
-         current.next().html("");
-       current.after("<div class='error'></div>");
-       current.next().html(value);
-;
-      }
-      });
-     });
-      }
-
-
-
-
-
-        },
+             $("#formid :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+              {
+                 var current = $(this).parent();
+                 var current_name = $(this).attr('name');
+                 $.each(data.dict1, function (index, value)
+                 {
+                     if (current_name == index)
+                      {
+                     current.next().html("");
+                      current.after("<div class='error'></div>");
+                     current.next().html(value);
+//;
+                     }
+                 });
+             });
+           }
+       },
         // handle a non-successful response
         error : function(xhr,errmsg,errors) {
         console.log(xhr.status + ": " + xhr.responseText);
@@ -94,15 +87,13 @@ $("#formid").submit(function(e) {
     });
 });
 
-
 $("#btn_login").click(function(e){
+alert("login button");
 $("#loginform").submit()
 });
 $("#loginform").submit(function(e) {
     e.preventDefault();
-
     var formData = new FormData(this);
-//    alert("ajax call");
     $.ajax({
     url : "/login/",
     type : "POST",
@@ -112,12 +103,10 @@ $("#loginform").submit(function(e) {
     processData: false,
         success : function(data)
          {
-            $('#txt_username').val("");
-		    $('#txt_password').val("");
-        console.log(data);
+            console.log(data);
             if (data.val == "success")
              {
-               alert("Login Successfull");
+	        	window.location.replace("/")
              }
             else if(data.val =="failed")
              {
@@ -126,10 +115,9 @@ $("#loginform").submit(function(e) {
 
         },
         // handle a non-successful response
-        error : function(xhr,errmsg,errors) {
-
+        error : function(xhr,errmsg,errors)
+         {
              alert("Login Failed");
-
         console.log(xhr.status + ": " + xhr.responseText);
         console.log(errors)// provide a bit more info about the error to the console
         }
@@ -139,3 +127,93 @@ $("#loginform").submit(function(e) {
 
 
 
+
+    //
+    //
+    //$("#commentform").submit(function(e) {
+    //    alert("ajax calll");
+    //    e.preventDefault();
+    //    var formData = new FormData(this);
+    //    $.ajax({
+    //    url :"/comment/"
+    //    type : "POST",
+    //    data : formData,
+    //    dataType:'json',
+    //    contentType: false,
+    //    processData: false,
+    //        success : function(data)
+    //        {
+    //          alert(">>>>>>>>>>>>   ajax calll");
+    //         console.log(data);
+    //         if(data.val="success")
+    //         {
+    //        alert("success");
+    //         }
+    ////         else if{
+    ////         alert("failure");
+    ////         }
+    //        else
+    //        {
+    //            $("#commentform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+    //              {
+    //                var current = $(this).parent();
+    //                var current_name = $(this).attr('name');
+    //                $.each(data.dict1, function (index, value)
+    //                 {
+    //                 if (current_name == index)
+    //                     {
+    //                        current.next().html("");
+    //                        current.after("<div class='error'></div>");
+    //                        current.next().html(value);
+    //;
+    //                      }
+    //                  });
+    //              });
+    //         }
+    //        },
+    //        // handle a non-successful response
+    //        error : function(xhr,errmsg,errors) {
+    //        console.log(xhr.status + ": " + xhr.responseText);
+    //        console.log(errors)// provide a bit more info about the error to the console
+    //        }
+    //    });
+    //});
+    //
+
+
+$("#btn_send").click(function(e){
+alert("send button");
+$("#contactform").submit()
+});
+$("#contactform").submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+    url : "/contact/",
+    type : "POST",
+    data : formData,
+    dataType:'json',
+    contentType: false,
+    processData: false,
+        success : function(data)
+         {
+            console.log(data);
+            if (data.val == "success")
+             {
+	        	window.location.replace("/")
+             }
+            else if(data.val =="failed")
+             {
+               alert("Username / Password Incorrect!");
+             }
+
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,errors)
+         {
+             alert("Login Failed");
+        console.log(xhr.status + ": " + xhr.responseText);
+        console.log(errors)// provide a bit more info about the error to the console
+        }
+    });
+});

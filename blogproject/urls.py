@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'', include('blogapp.urls')),
     url(r'^accounts/', include('allauth.urls')),
     # url('djrichtextfield/', include('djrichtextfield.urls'))
+    # url(r'^ckeditor/', include('ckeditor.urls')),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
