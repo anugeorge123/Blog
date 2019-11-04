@@ -5,6 +5,9 @@
 {% csrf_token %}
 
 
+
+
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -28,7 +31,7 @@
                         <!-- Modal content-->
                         {% load socialaccount %}
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header"><h4>Login</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
@@ -101,8 +104,8 @@
                         <!-- Modal content-->
                         {% load socialaccount %}
                         <div class="modal-content">
-							<h4>Signup</h4>
-                            <div class="modal-header">
+
+                            <div class="modal-header"><h4>Signup</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
@@ -129,14 +132,11 @@
 		<div class="hero-slider owl-carousel">
 			{% for slider in slider_details %}
 			<div class="hero-slide-item set-bg" data-setbg="{{slider.slider_image.url}}">
-
-				{% for caption in slider_captions %}
 				<div class="hs-text">
-					<h2 class="hs-title-1"><span>{{caption.slider_caption1}}</span></h2>
-					<h2 class="hs-title-2"><span>{{caption.slider_caption2}}</span></h2>
-					<h2 class="hs-title-3"><span>{{caption.slider_caption3}}</span></h2>
+					<h2 class="hs-title-1"><span>{{slider.slider_caption1}}</span></h2>
+					<h2 class="hs-title-2"><span>{{slider.slider_caption2}}</span></h2>
+					<h2 class="hs-title-3"><span>{{slider.slider_caption3}}</span></h2>
 				</div>
-				{% endfor %}
 			</div>
 			{% endfor %}
 		</div>
@@ -189,13 +189,13 @@
 						<div class="recipe-info-warp">
 							<div class="recipe-info">
 								<h3>{{image.recipe}}</h3>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
+<!--								<div class="rating">-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star is-fade"></i>-->
+<!--								</div>-->
 							</div>
 						</div>
 					</div>
@@ -220,13 +220,13 @@
 							<div class="rl-info">
 								<span>March 14, 2018</span>
 								<h6>Italian pasta</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
+<!--								<div class="rating">-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star is-fade"></i>-->
+<!--								</div>-->
 							</div>
 						</li>
 						<li>
@@ -321,7 +321,7 @@
 							</div>
 						</li>
 						<li>
-							<div class="rl-thumb set-bg" data-setbg="../static/img/thumb/8.jpg"></div>
+							<div class="rl-thumb set-bg" data-setbg="{% static '/img/thumb/8.jpg' %}"></div>
 							<div class="rl-info">
 								<span>March 14, 2018</span>
 								<h6>Deep Fried Fish</h6>
@@ -442,9 +442,17 @@
 			</div>
 		</div>
 	</section>
+
+
+
 	<!-- Review section end -->
-
-
-
 {% endblock%}
 
+
+
+{% block image_slider %}
+
+					{% for image in sliderimage %}
+					<div class="gs-item set-bg" data-setbg="{{image.image.url}}"></div>
+					{% endfor %}
+{% endblock image_slider %}

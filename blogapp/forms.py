@@ -4,7 +4,7 @@ from .models import Realuser,Category, Ingredients, Recipe,Type
 
 class Signupform(forms.Form):
     name = forms.CharField(label='Name', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    address = forms.CharField(label='Address', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # address = forms.CharField(label='Address', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Email', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     pwd = forms.CharField(label='Password', required=False, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     cpwd = forms.CharField(label='Confirm Password', required=False, widget=forms.PasswordInput(attrs={'class': 'form-control'}))

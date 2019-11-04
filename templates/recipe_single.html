@@ -56,13 +56,13 @@
 				<h2>{{single_recipe.recipe}}{{single_recipe.id}}</h2>
 
 				<div class="recipe-date">{{single_recipe.date}}</div>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star is-fade"></i>
-				</div>
+	<!--				<div class="rating">-->
+	<!--					<i class="fa fa-star"></i>-->
+	<!--					<i class="fa fa-star"></i>-->
+	<!--					<i class="fa fa-star"></i>-->
+	<!--					<i class="fa fa-star"></i>-->
+	<!--					<i class="fa fa-star is-fade"></i>-->
+	<!--				</div>-->
 			</div>
 			<div class="row">
 				<div class="col-lg-5">
@@ -81,10 +81,12 @@
 
 							<form class="filter-form">
 								<div class="check-warp">
-									<input type="checkbox" id="one">
-									<label for="one">{{item_ingredients.ingredients}}</label>
+								<ul>
+									<li>
+									{{item_ingredients.ingredients}}
+									</li>
+								</ul>
 								</div>
-
 							</form>
 
 							{% endfor %}
@@ -93,9 +95,11 @@
 					</div>
 				</div>
 				<div class="col-lg-7">
+
 					<ul class="recipe-info-list">
+
 						<li>
-							<h2>01.</h2>
+
 							<p>{{single_recipe.steps| safe}}</p>
 						</li>
 <!--						<li>-->
@@ -156,7 +160,7 @@
 	<section class="comment-section spad pt-0">
 		<div class="container">
 			<h4>Leave a comment</h4>
-			<form class="comment-form"  id="commentform">
+			<form class="comment-form"  id="commentform" method="post">
 				{% csrf_token %}
 
 				<div class="row">
@@ -169,7 +173,7 @@
 					<div class="col-md-12">
 						<input type="text" placeholder="Subject" name="txt_subject">
 						<textarea placeholder="Message" name="txt_message"></textarea>
-						<button type="submit" class="site-btn">Send</button>
+						<button type="submit" class="site-btn" id="btn_submit">Send</button>
 						<input type="hidden" name="txt_recipe" value="{{single_recipe.id}}">
 					</div>
 				</div>

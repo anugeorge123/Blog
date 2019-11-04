@@ -4,12 +4,12 @@ from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 
 class Realuser(AbstractUser):
-    address = models.CharField(max_length=100)
+    # address = models.CharField(max_length=100)
     token = models.CharField(max_length=255, default="111", null=True)
 
     class Meta:
         db_table = "realuser"
-        verbose_name_plural = "Realuser"
+        verbose_name_plural = "User"
 
 
 class Category(models.Model):
@@ -54,8 +54,7 @@ class Recipe(models.Model):
     cook = models.CharField(max_length=100, null=True, blank=True)
     yields = models.CharField(max_length=100, null=True, blank=True)
     img = models. FileField(blank=True, null=True)
-    steps = RichTextField(default=0)
-    # steps = models.TextField(max_length=100, null=True, blank=True)
+    steps = RichTextField(blank=True, null=True)
     date = models.DateField(default=datetime.date.today, null=True, blank=True)
 
     class Meta:
@@ -83,27 +82,16 @@ class Review(models.Model):
 
 class Slider(models.Model):
     slider_image = models.FileField(blank=True, null=True)
-
-    class Meta:
-        db_table = "slider"
-        verbose_name = "Slider"
-
-    def __str__(self):
-        return self.slider_image.url
-
-
-class Slider_child(models.Model):
-    slider_image = models.ManyToManyField(Slider, blank=True)
     slider_caption1 = models.CharField(max_length=100, null=True, blank=True)
     slider_caption2 = models.CharField(max_length=100, null=True, blank=True)
     slider_caption3 = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
-        db_table = "slider_child"
-        verbose_name_plural = "Slider child"
+        db_table = "slider"
+        verbose_name_plural  = "Slider"
 
     def __str__(self):
-        return self.slider_caption1
+        return self.slider_image.url
 
 class Links(models.Model):
     icon_name = models.CharField(max_length=100, blank=True, null=True)
@@ -118,7 +106,7 @@ class Links(models.Model):
 
 class Contact(models.Model):
     contact_name = models.CharField(max_length=100,blank=True, null=True)
-    contact_email = models.EmailField(max_length=70, blank=True, null=True, unique=True)
+    contact_email = models.EmailField(max_length=70, blank=True, null=True)
     contact_subject = models.CharField(max_length=100,blank=True, null=True)
     contact_message = models.CharField(max_length=100, blank=True, null=True)
 
@@ -126,5 +114,30 @@ class Contact(models.Model):
         db_table = "contact"
         verbose_name_plural = "contact"
 
-    def __str__(selfself):
+    def __str__(self):
         return self.contact_name
+
+class ImageSlider(models.Model):
+    image = models. FileField(blank=True, null=True)
+
+    class Meta:
+        db_table = "imageslider"
+        verbose_name_plural = "Image Slider"
+
+    def __str__(self):
+        return self.image.url
+
+class About(models.Model):
+    about_caption = models.CharField(max_length=100,blank=True,null=True)
+    about_content = models.CharField(max_length=255,blank=True,null=True)
+    about_image = models.FileField(blank=True, null=True)
+    about_icons = models.FileField(blank=True, null=True)
+    about_number = models.CharField(max_length=100,blank=True, null=True)
+    about_iconitem = models.CharField(max_length=100,blank=True, null=True)
+
+    class Meta:
+        db_table = "about"
+        verbose_name_plural="about"
+
+    def __str__(self):
+        return  self.about_caption

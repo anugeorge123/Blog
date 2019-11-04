@@ -127,93 +127,146 @@ $("#loginform").submit(function(e) {
 
 
 
+$("#btn_submit").click(function(e){
+e.preventDefault();
+$.ajax({
+	url:"/comment/",
+	type:"post",
+	datatype:"json",
+	data:$("#commentform").serialize(),
+	success:function(data)
+	{
+		if(data.val="success")
+		{
+			alert("success");
+		}
+		else
+		{
+			alert("comment not submitted");
+		}
+	},
+	error:function()
+	{
+	alert("Connection Failed");
+	}
+	});
+});
 
-    //
-    //
-    //$("#commentform").submit(function(e) {
-    //    alert("ajax calll");
-    //    e.preventDefault();
-    //    var formData = new FormData(this);
-    //    $.ajax({
-    //    url :"/comment/"
-    //    type : "POST",
-    //    data : formData,
-    //    dataType:'json',
-    //    contentType: false,
-    //    processData: false,
-    //        success : function(data)
-    //        {
-    //          alert(">>>>>>>>>>>>   ajax calll");
-    //         console.log(data);
-    //         if(data.val="success")
-    //         {
-    //        alert("success");
-    //         }
-    ////         else if{
-    ////         alert("failure");
-    ////         }
-    //        else
-    //        {
-    //            $("#commentform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
-    //              {
-    //                var current = $(this).parent();
-    //                var current_name = $(this).attr('name');
-    //                $.each(data.dict1, function (index, value)
-    //                 {
-    //                 if (current_name == index)
-    //                     {
-    //                        current.next().html("");
-    //                        current.after("<div class='error'></div>");
-    //                        current.next().html(value);
-    //;
-    //                      }
-    //                  });
-    //              });
-    //         }
-    //        },
-    //        // handle a non-successful response
-    //        error : function(xhr,errmsg,errors) {
-    //        console.log(xhr.status + ": " + xhr.responseText);
-    //        console.log(errors)// provide a bit more info about the error to the console
-    //        }
-    //    });
-    //});
-    //
+
+
+
+//
+//    $("#commentform").submit(function(e) {
+//        alert("ajax calll");
+//        e.preventDefault();
+//        var formData = new FormData(this);
+//        $.ajax({
+//        url :"/comment/"
+//        type : "POST",
+//        data : formData,
+//        dataType:'json',
+//        contentType: false,
+//        processData: false,
+//            success : function(data)
+//            {
+//              alert(">>>>>>>>>>>>   ajax calll");
+//             console.log(data);
+//             if(data.val="success")
+//             {
+//            alert("success");
+//             }
+//    //         else if{
+//    //         alert("failure");
+//    //         }
+//            else
+//            {
+//                $("#commentform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+//                  {
+//                    var current = $(this).parent();
+//                    var current_name = $(this).attr('name');
+//                    $.each(data.dict1, function (index, value)
+//                     {
+//                     if (current_name == index)
+//                         {
+//                            current.next().html("");
+//                            current.after("<div class='error'></div>");
+//                            current.next().html(value);
+//    ;
+//                          }
+//                      });
+//                  });
+//             }
+//            },
+//            // handle a non-successful response
+//            error : function(xhr,errmsg,errors) {
+//            console.log(xhr.status + ": " + xhr.responseText);
+//            console.log(errors)// provide a bit more info about the error to the console
+//            }
+//        });
+//    });
+//
+
+//
+//$("#btn_send").click(function(e){
+//alert("send button");
+//$("#contactform").submit()
+//});
+//$("#contactform").submit(function(e) {
+//    e.preventDefault();
+//    var formData = new FormData(this);
+//    $.ajax({
+//    url : "/contact/",
+//    type : "POST",
+//    data : formData,
+//    dataType:'json',
+//    contentType: false,
+//    processData: false,
+//        success : function(data)
+//         {
+//            console.log(data);
+//            if (data.val == "success")
+//             {
+//	        	alert("success");
+//             }
+//            else if(data.val =="failed")
+//             {
+//               alert("Failed !");
+//             }
+//
+//        },
+//        // handle a non-successful response
+//        error : function(xhr,errmsg,errors)
+//         {
+//             alert("Login Failed");
+//        console.log(xhr.status + ": " + xhr.responseText);
+//        console.log(errors)// provide a bit more info about the error to the console
+//        }
+//    });
+//});
+
 
 
 $("#btn_send").click(function(e){
-alert("send button");
-$("#contactform").submit()
-});
-$("#contactform").submit(function(e) {
-    e.preventDefault();
-    var formData = new FormData(this);
-    $.ajax({
-    url : "/contact/",
-    type : "POST",
-    data : formData,
-    dataType:'json',
-    contentType: false,
-    processData: false,
-        success : function(data)
-         {
-            console.log(data);
-            if (data.val == "success")
-             {
-	        	window.location.replace("/")
-             }
-            else if(data.val =="failed")
-             {
-               alert("Username / Password Incorrect!");
-             }
-
-        },
-        // handle a non-successful response
-        error : function(xhr,errmsg,errors)
-         {
-             alert("Login Failed");
-        console.log(xhr.status + ": " + xhr.responseText);
-        console.log(errors)// provide a bit more info about the error to the console
-        }
-    });
+e.preventDefault();
+$.ajax({
+	url:"/contact/",
+	type:"post",
+	datatype:"json",
+	data:$("#contactform").serialize(),
+	success:function(data)
+	{
+		if(data.val="success")
+		{
+			alert("success");
+		}
+		else
+		{
+			alert("comment not submitted");
+		}
+	},
+	error:function()
+	{
+	alert("Connection Failed");
+	}
+	});
 });

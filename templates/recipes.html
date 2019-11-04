@@ -65,13 +65,13 @@
 						<div class="recipe-info-warp">
 							<div class="recipe-info">
 								<a href="{% url 'recipe_single' recipe.pk %}">	<h3>{{recipe.recipe}}</h3></a>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
+	<!--								<div class="rating">-->
+	<!--									<i class="fa fa-star"></i>-->
+	<!--									<i class="fa fa-star"></i>-->
+	<!--									<i class="fa fa-star"></i>-->
+	<!--									<i class="fa fa-star"></i>-->
+	<!--									<i class="fa fa-star is-fade"></i>-->
+	<!--								</div>-->
 							</div>
 						</div>
 					</div>
@@ -80,9 +80,29 @@
 			</div>
 
 			<div class="site-pagination">
-				<span>01</span>
-				<a href="#">02</a>
-				<a href="#">03</a>
+
+				{% if recipe.has_other_pages %}
+  				<ul class="pagination">
+   				{% if recipe.has_previous %}
+     			 <li><a href="?page={{ recipe.previous_page_number }}">&laquo;</a></li>
+    			{% else %}
+     			 <li class="disabled"><span>&laquo;</span></li>
+  				{% endif %}
+  				{% for i in recipe.paginator.page_range %}
+      				{% if recipe.number == i %}
+       					 <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      				{% else %}
+     					 <li><a href="?page={{ i }}">{{ i }}</a></li>
+    				{% endif %}
+    			{% endfor %}
+   	 			{% if recipe.has_next %}
+     				 <li><a href="?page={{ recipe.next_page_number }}">&raquo;</a></li>
+  				{% else %}
+					<li class="disabled"><span>&raquo;</span></li>
+    			{% endif %}
+ 				</ul>
+				{% endif %}
+
 			</div>
 		</div>
 	</section>
