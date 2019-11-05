@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'ckeditor'
+    'ckeditor',
+    'geoposition',
 ]
-
+GEOPOSITION_GOOGLE_MAPS_API_KEY ='AIzaSyBGq0HkTEVxNLvYVJz-XsjON8jP8GLWnSY'
 
 CKEDITOR_CONFIGS = {
     # django-ckeditor defaults
@@ -117,7 +118,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-SITE_ID = 2
+SITE_ID = 3
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_QUERY_EMAIL = True

@@ -40,7 +40,7 @@ $("#formid").submit(function(e) {
     processData: false,
         success : function(data)
         {
-            alert("inside successs fn");
+//            alert("inside successs fn");
             console.log(data);
             if(data.pass)
             {
@@ -48,20 +48,21 @@ $("#formid").submit(function(e) {
             }
             if (data.val =="Success")
              {
-               alert("Signup done successfully");
+//               alert("Signup done successfully");
              }
              else if(data.val =="failure")
              {
-               alert("Password Incorrect");
+//               alert("Password Incorrect");
              }
              else if(data.val=="Error")
              {
-               alert("Error");
+//               alert("Error");
              }
 
 
              else
              {
+
              $("#formid :input:not(input[type='hidden'],input[type='submit'])").each(function ()
               {
                  var current = $(this).parent();
@@ -70,7 +71,7 @@ $("#formid").submit(function(e) {
                  {
                      if (current_name == index)
                       {
-                     current.next().html("");
+
                       current.after("<div class='error'></div>");
                      current.next().html(value);
 //;
@@ -257,7 +258,7 @@ $.ajax({
 	{
 		if(data.val="success")
 		{
-			alert("success");
+			//alert("success");
 		}
 		else
 		{
@@ -270,3 +271,5 @@ $.ajax({
 	}
 	});
 });
+
+

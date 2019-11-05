@@ -1,5 +1,30 @@
 from django.contrib import admin
-from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider
+from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap
+
+from django.conf import settings
+from django.contrib import admin
+
+
+@admin.register(GoogleMap)
+class VenueAdmin(admin.ModelAdmin):
+    list_display = ('name', 'latitude', 'longitude',)
+    search_fields = ('name',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'latitude', 'longitude',)
+        }),
+    )
+
+    class Media:
+        if hasattr(settings, 'GOOGLE_MAPS_API_KEY') and settings.GOOGLE_MAPS_API_KEY:
+            css = {
+                'all': ('css/location_picker.css',),
+            }
+            js = (
+                'https://maps.googleapis.com/maps/api/js?key={}'.format(settings.GOOGLE_MAPS_API_KEY),
+                'js/location_picker.js',
+            )
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -25,12 +50,11 @@ class RealuserAdmin(admin.ModelAdmin):
     ]
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    fields = ['name','email','subject','message','recipe']
+    fields = ['name','email','subject','message','recipe','rate']
 
 
-# class Contact(admin.ModelAdmin):
-#     model = Contact
-#     list_display = ('contact_name', 'contact_email', 'contact_subject','contact_message')
+
+
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Category, CategoryAdmin)
@@ -45,3 +69,6 @@ admin.site.register(Slider, admin.ModelAdmin)
 admin.site.register(Links, admin.ModelAdmin)
 admin.site.register(Contact, admin.ModelAdmin)
 admin.site.register(ImageSlider, admin.ModelAdmin)
+admin.site.register(About, admin.ModelAdmin)
+admin.site.register(AboutChild, admin.ModelAdmin)
+# admin.site.register(GoogleMap, admin.ModelAdmin)

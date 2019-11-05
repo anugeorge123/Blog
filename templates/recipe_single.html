@@ -2,36 +2,41 @@
 {% load static %}
 {% block content %}
 
+
 <section class="page-top-section set-bg" data-setbg="{% static 'img/page-top-bg.jpg' %}">
 		<div class="container">
 			<h2>Recipe</h2>
 		</div>
 	</section>
 
-<div class="search-form-section">
+	<!-- Search section -->
+	<div class="search-form-section">
 		<div class="sf-warp">
 			<div class="container">
-				<form class="big-search-form">
-					<select>
-						<option>All Recipes Categories</option>
-						<option>Pizza</option>
-						<option>Salads</option>
-						<option>Desserts</option>
-						<option>Side Dishes</option>
-					</select>
-					<select>
-						<option>All Ingredients</option>
-						<option>Breakfast</option>
-						<option>Lunch</option>
-						<option>Dinner</option>
-					</select>
-					<input type="text" placeholder="Search Receipies">
-					<button class="bsf-btn">Search</button>
+				<form class="big-search-form" method="post" action="{% url 'recipe' %}">
+					{% csrf_token %}
+					<select name="sel_category" >
+						<option value="">Category</option>
+						{% for i in category %}
 
+						<option value="{{ i.category_name}}">{{ i.category_name}}</option>
+						{% endfor %}
+					</select>
+
+					<select name="sel_type">
+						<option value="">Type</option>
+						{% for k in type %}
+						<option value="{{k.type_name}}">{{k.type_name}}</option>
+						{% endfor %}
+					</select>
+					<input type="text" placeholder="Search Recipies" name="txt_recipename">
+					<button class="bsf-btn">Search</button>
 				</form>
 			</div>
 		</div>
 	</div>
+	<!-- Search section end -->
+
 
 
 
@@ -53,9 +58,14 @@
 				<div class="racipe-cata">
 					<span>For Begginers</span>
 				</div>
-				<h2>{{single_recipe.recipe}}{{single_recipe.id}}</h2>
+				<h2>{{single_recipe.recipe}}</h2>
 
 				<div class="recipe-date">{{single_recipe.date}}</div>
+
+
+
+
+
 	<!--				<div class="rating">-->
 	<!--					<i class="fa fa-star"></i>-->
 	<!--					<i class="fa fa-star"></i>-->
@@ -152,7 +162,42 @@
 
 
 
+<div>
+<h4><b>{{count}} Comments</b></h4>
 
+	<br> <section class="comments">
+	 {% for comment in comments %}
+    <article class="comment">
+      <a class="comment-img" href="#non">
+        <img src="{% static 'img/instagram/1.jpg' %}" alt="" width="50" height="50">
+      </a>
+
+      <div class="comment-body">
+
+        <div class="text">
+          <p>{{comment.message}}</p>
+        </div>
+
+        <p class="attribution">by <a href="#non">{{comment.name}}</a> </p>
+      </div>
+
+    </article>
+	 {% endfor %}
+      <article class="comment">
+      <a class="comment-img" href="#non">
+        <img src="{% static 'img/instagram/3.jpg' %}" alt="" width="50" height="50">
+      </a>
+      <div class="comment-body">
+        <div class="text">
+          <p>if you are interested for  more about me visited my profile on social page</p>
+          <p>To visit me you can click my name  <a target="_blank" href="http://www.facebook.com">Food Blog</a> and send me frends request or send me a message in inbox</p>
+        </div>
+        <p class="attribution">by <a href="/">Food Blog</a></p>
+      </div>
+    </article>
+  </section>
+
+</div>
 
 
 
@@ -163,6 +208,30 @@
 			<form class="comment-form"  id="commentform" method="post">
 				{% csrf_token %}
 
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="star-rating">
+        <span class="fa fa-star-o" data-rating="1"></span>
+        <span class="fa fa-star-o" data-rating="2"></span>
+        <span class="fa fa-star-o" data-rating="3"></span>
+        <span class="fa fa-star-o" data-rating="4"></span>
+        <span class="fa fa-star-o" data-rating="5"></span>
+        <input type="hidden" name="txt_rate" class="rating-value" value="">
+      </div>
+    </div>
+  </div>
+
+	<style>
+  .star-rating {
+  line-height:32px;
+  font-size:1.25em;
+}
+.star-rating .fa-star{color: yellow;}
+</style>
+<br><br>
 				<div class="row">
 					<div class="col-md-6">
 						<input type="text" placeholder="Name" name="txt_name">
@@ -180,7 +249,12 @@
 			</form>
 		</div>
 	</section>
+
+
+
 	<!-- Comment section -->
+
+
 {% endblock%}
 
 

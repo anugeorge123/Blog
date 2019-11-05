@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+
+
+
+	<!-- Hero section -->
+	<section class="page-top-section set-bg" data-setbg="{% static 'img/page-top-bg.jpg' %}">
+		<div class="container">
+			<h2>Search</h2>
+		</div>
+	</section>
+	<!-- Hero section end -->
+
+<!-- Search section -->
+	<div class="search-form-section">
+		<div class="sf-warp">
+			<div class="container">
+				<form class="big-search-form" method="post" action="{% url 'search' %}">
+					{% csrf_token %}
+
+					<input type="text" placeholder="Search" name="txt_text">
+					<button class="bsf-btn">Search</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Search section end -->
+
+
+
+
+
+
+
+
+
+
+<!--	<section class="contact-section spad">-->
+<!--		<div class="container">-->
+<!--			<div class="row">-->
+<!--				<div class="col-lg-8">-->
+<!--					<div class="contact-form-warp">-->
+<!--						<h4>Leave a comment</h4>-->
+<!--						<form class="contact-form" id="contactform" >-->
+<!--							<div class="row">-->
+<!--								<div class="col-md-6">-->
+<!--									<input type="text" placeholder="Name" name="txt_name">-->
+<!--								</div>-->
+<!--								<div class="col-md-6">-->
+<!--									<input type="text" placeholder="E-mail" name="txt_email">-->
+<!--								</div>-->
+<!--								<div class="col-md-12">-->
+<!--									<input type="text" placeholder="Subject" name="txt_subject">-->
+<!--									<textarea placeholder="Message" name="txt_message"></textarea>-->
+<!--									<button class="site-btn" id="btn_send">Send</button>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</form>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="col-lg-4">-->
+<!--					<div class="contact-logo">-->
+<!--						<img src="{% static 'img/logo.png' %}" alt="">-->
+<!--					</div>-->
+<!--					<div class="contact-info">-->
+<!--						<ul class="ct-list">-->
+<!--							<li>-->
+<!--								<h6>Address:</h6>-->
+<!--								<p>481 Creekside Lane Avila</p>-->
+<!--								<p>Beach, CA 93424</p>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<h6>Phone:</h6>-->
+<!--								<p>+53 345 7953 32453</p>-->
+<!--								<p>+53 345 7557 822112</p>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<h6>Email:</h6>-->
+<!--								<p>yourmail@gmail.com</p>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--						<div class="contact-social">-->
+<!--							{% for icon in socialicon %}-->
+<!--							<a href="{{icon.social_url}}"  target="_blank" ><i class="{{icon.icon_name}}"></i></a>-->
+<!--							{% endfor %}-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			&lt;!&ndash; map &ndash;&gt;-->
+<!--			<div class="location-map" id="map-canvas"></div>-->
+<!--		</div>-->
+<!--	</section>-->
+
+
+{% endblock%}

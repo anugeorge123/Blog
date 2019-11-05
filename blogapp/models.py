@@ -2,6 +2,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
+from geoposition.fields import GeopositionField
 
 class Realuser(AbstractUser):
     # address = models.CharField(max_length=100)
@@ -68,9 +69,10 @@ class Recipe(models.Model):
 class Review(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipes',null=True)
     name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=70, blank=True, null=True, unique=True)
+    email = models.EmailField(max_length=70, blank=True, null=True)
     subject = models.CharField(max_length=100)
     message = models.TextField()
+    rate = models.IntegerField(blank=True,null=True)
 
     class Meta:
         db_table = "review"
@@ -131,13 +133,37 @@ class About(models.Model):
     about_caption = models.CharField(max_length=100,blank=True,null=True)
     about_content = models.CharField(max_length=255,blank=True,null=True)
     about_image = models.FileField(blank=True, null=True)
+    about_text = models.CharField(max_length =100,blank=True,null=True)
+
+    class Meta:
+        db_table = "about"
+        verbose_name_plural="About"
+
+    def __str__(self):
+        return  self.about_caption
+
+class AboutChild(models.Model):
     about_icons = models.FileField(blank=True, null=True)
     about_number = models.CharField(max_length=100,blank=True, null=True)
     about_iconitem = models.CharField(max_length=100,blank=True, null=True)
 
     class Meta:
-        db_table = "about"
-        verbose_name_plural="about"
+        db_table = "aboutchild"
+        verbose_name_plural = "About Child"
 
     def __str__(self):
-        return  self.about_caption
+        return self.about_iconitem
+
+
+
+class GoogleMap(models.Model):
+    name = models.CharField(max_length=255)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    class Meta:
+        db_table = "googlemap"
+        verbose_name_plural = "Google Map"
+
+    def __str__(self):
+        return self.name

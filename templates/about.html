@@ -14,12 +14,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 about-text">
-					<h2>About our great team</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magni. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magni.</p>
-					<div class="site-btn">Read more</div>
+					{% for aboutas in about %}
+					<h2>{{aboutas.about_caption}}</h2>
+					<p>{{aboutas.about_content}}</p>
+
+
 				</div>
 				<div class="col-lg-6">
-					<img src="{% static 'img/about.jpg' %}" alt="">
+					<img src="{{aboutas.about_image.url}}" alt="">
+						{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -31,37 +34,22 @@
 	<section class="facts-section">
 		<div class="facts-warp">
 			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-sm-6 fact-item">
+
+				<div class="row">	{% for details in aboutas %}
+						<div class="col-lg-3 col-sm-6 fact-item">
+
 						<div class="fact-icon">
-							<img src="{% static 'img/icon/1.png' %}" alt="">
+							<img src="{{details.about_icons.url}}" alt="">
 						</div>
-						<h2>1287</h2>
-						<p>Amazing receipies</p>
-					</div>
-					<div class="col-lg-3 col-sm-6 fact-item">
-						<div class="fact-icon">
-							<img src="{% static 'img/icon/2.png' %}" alt="">
+						<h2>{{details.about_number}}</h2>
+						<p>{{details.about_iconitem}}</p>
+
 						</div>
-						<h2>25</h2>
-						<p>Wine pairings</p>
-					</div>
-					<div class="col-lg-3 col-sm-6 fact-item">
-						<div class="fact-icon">
-							<img src="{% static 'img/icon/3.png' %}" alt="">
-						</div>
-						<h2>471</h2>
-						<p>Meat receipies</p>
-					</div>
-					<div class="col-lg-3 col-sm-6 fact-item">
-						<div class="fact-icon">
-							<img src="{% static 'img/icon/4.png' %}" alt="">
-						</div>
-						<h2>326</h2>
-						<p>Desert receipies</p>
-					</div>
+							{% endfor %}
 				</div>
-			</div>
+
+				</div>
+
 		</div>
 	</section>
 	<!-- Facts section end -->
@@ -77,7 +65,9 @@
 						<input type="text" placeholder="Your E-mail">
 						<button class="site-btn">Subscribe</button>
 					</form>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. </p>
+					{% for aboutas in about %}
+					<p> {{aboutas.about_text}}</p>
+					{% endfor %}
 				</div>
 				<div class="col-lg-6">
 					<img class="nl-sp-img" src="img/newslatter.png" alt="">

@@ -130,33 +130,6 @@
 
 
 
-	<!-- Search section -->
-	<div class="search-form-section">
-		<div class="sf-warp">
-			<div class="container">
-				<form class="big-search-form">
-					<select>
-						<option>All Recipes Categories</option>
-						<option>Pizza</option>
-						<option>Salads</option>
-						<option>Desserts</option>
-						<option>Side Dishes</option>
-					</select>
-					<select>
-						<option>All Ingredients</option>
-						<option>Breakfast</option>
-						<option>Lunch</option>
-						<option>Dinner</option>
-					</select>
-					<input type="text" placeholder="Search Receipies">
-					<button class="bsf-btn">Search</button>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- Search section end -->
-
-
 
 
 
@@ -211,18 +184,15 @@
 							</li>
 						</ul>
 						<div class="contact-social">
-							<a href="#"><i class="fa fa-pinterest"></i></a>
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
-							<a href="#"><i class="fa fa-linkedin"></i></a>
+							{% for icon in socialicon %}
+							<a href="{{icon.social_url}}"  target="_blank" ><i class="{{icon.icon_name}}"></i></a>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- map -->
-			<div class="location-map" id="map-canvas"></div>	
+			<div class="location-map" id="map-canvas"></div>
 		</div>
 	</section>
 

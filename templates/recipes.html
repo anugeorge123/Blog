@@ -42,18 +42,23 @@
 	<!-- Recipes section -->
 	<section class="recipes-page spad">
 		<div class="container">
+			{% if request.POST %}
+				<h4>{{count}} Result(s) Found</h4>
+				{% endif %}
 			<div class="row">
+
 				<div class="col-md-8">
+
 <!--					<div class="section-title">-->
 <!--						<h2>Latest recipes</h2>-->
 <!--					</div>-->
 				</div>
-				<div class="col-md-4">
-					<div class="recipe-view">
-						<i class="fa fa-bars"></i>
-						<i class="fa fa-th active"></i>
-					</div>
-				</div>
+<!--				<div class="col-md-4">-->
+<!--					<div class="recipe-view">-->
+<!--						<i class="fa fa-bars"></i>-->
+<!--						<i class="fa fa-th active"></i>-->
+<!--					</div>-->
+<!--				</div>-->
 			</div>
 			<div class="row">
 					{% for recipe in recipe %}
