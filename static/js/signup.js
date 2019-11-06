@@ -22,12 +22,8 @@ $.ajaxSetup({
          }
      }
 });
-//$("#btn_signup").click(function(e){
-//$("#formid").submit()
-//alert("helloo");
-//});
+
 $("#formid").submit(function(e) {
-//alert("signup");
     var url = $('#url').val();
     e.preventDefault();
     var formData = new FormData(this);
@@ -40,7 +36,6 @@ $("#formid").submit(function(e) {
     processData: false,
         success : function(data)
         {
-//            alert("inside successs fn");
             console.log(data);
             if(data.pass)
             {
@@ -48,7 +43,7 @@ $("#formid").submit(function(e) {
             }
             if (data.val =="Success")
              {
-//               alert("Signup done successfully");
+             //
              }
              else if(data.val =="failure")
              {
@@ -89,7 +84,7 @@ $("#formid").submit(function(e) {
 });
 
 $("#btn_login").click(function(e){
-alert("login button");
+
 $("#loginform").submit()
 });
 $("#loginform").submit(function(e) {
@@ -139,16 +134,15 @@ $.ajax({
 	{
 		if(data.val="success")
 		{
-			alert("success");
+
+			  document.getElementById("alert").innerHTML = "Success";
+
 		}
-		else
-		{
-			alert("comment not submitted");
-		}
+
 	},
 	error:function()
 	{
-	alert("Connection Failed");
+document.getElementById("error").innerHTML = "Empty fields not allowed";
 	}
 	});
 });
@@ -207,9 +201,8 @@ $.ajax({
 //    });
 //
 
-//
+
 //$("#btn_send").click(function(e){
-//alert("send button");
 //$("#contactform").submit()
 //});
 //$("#contactform").submit(function(e) {
@@ -227,18 +220,15 @@ $.ajax({
 //            console.log(data);
 //            if (data.val == "success")
 //             {
-//	        	alert("success");
-//             }
-//            else if(data.val =="failed")
-//             {
-//               alert("Failed !");
+//	        	 document.getElementById("alert").innerHTML = "Success";
+//
 //             }
 //
 //        },
 //        // handle a non-successful response
 //        error : function(xhr,errmsg,errors)
 //         {
-//             alert("Login Failed");
+//              document.getElementById("error").innerHTML = "Empty field not allowed!";
 //        console.log(xhr.status + ": " + xhr.responseText);
 //        console.log(errors)// provide a bit more info about the error to the console
 //        }
@@ -258,16 +248,13 @@ $.ajax({
 	{
 		if(data.val="success")
 		{
-			//alert("success");
+			document.getElementById("alert").innerHTML = "Success";
 		}
-		else
-		{
-			alert("comment not submitted");
-		}
+
 	},
 	error:function()
 	{
-	alert("Connection Failed");
+ document.getElementById("error").innerHTML = "Empty field not allowed!";
 	}
 	});
 });

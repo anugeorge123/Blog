@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, request
 from django.views.generic import View, DetailView
-from blogapp.models import Realuser, Category, Ingredients, Type,Recipe, Slider,  Review,  Links, Contact, ImageSlider, About, AboutChild, GoogleMap
+from blogapp.models import Realuser, Category, Ingredients, Type,Recipe, Slider,  Review,  Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating
 from django.contrib.auth import login, authenticate, logout
 # from django.contrib.auth.models import Realuser
 from django.contrib.auth.hashers import check_password
@@ -25,6 +25,7 @@ from django.core.paginator import Paginator
 class Home(View):
 
     def get(self, request):
+        star_dict = {}
         form = Signupform()
         login = LoginForm()
         query_img = Recipe.objects.all().order_by('-date')[:6]
@@ -36,8 +37,14 @@ class Home(View):
         # query_captions = Slider_child.objects.all()
         query_icons = Links.objects.all()
         query_imageslider = ImageSlider.objects.all()
+        query_toprated = Rating.objects.all().order_by('-average')
 
-        return render(request, "index.html", {'id': form, 'log': login, 'product_images': query_img,'slider_details': query_background, 'socialicon': query_icons,'sliderimage':query_imageslider})
+        for i in query_toprated:
+            star_average = i.average
+            star_dict[i] = range(i.average)
+            print("dict-------------->", star_dict)
+            # print("--------------------iiii",i,range(i.average))
+        return render(request, "index.html", {'id': form, 'log': login, 'product_images': query_img,'slider_details': query_background, 'socialicon': query_icons,'sliderimage':query_imageslider, 'toprated':query_toprated, 'starrating': star_dict})
 
     def linkmail(request):
         token = request.GET['token']
@@ -194,13 +201,11 @@ class ContactView(View):
                 print(query_contact)
                 # query_contact.save()
                 conta["val"] = "success"
-            else:
-                conta["val"] = "failure"
-                conta["errors"] = "This Field is required"
-            return HttpResponse(json.dumps(conta), content_type="application/json")
+                return HttpResponse(json.dumps(conta), content_type="application/json")
         except Exception as e:
             print("error----->", e)
-            return HttpResponse("success")
+            conta["val"] = "failure"
+            return HttpResponse(json.dumps(conta), content_type="application/json")
 
 
 class RecipeSingle(DetailView):
@@ -227,13 +232,19 @@ class Comments(View):
     #     return render(request, "recipe_single.html", {'socialicon': query_icons,'comments': query_comments})
 
     def post(self, request):
+        n=0
         comm = {}
         print(self.request.POST)
         recipe_id =request.POST.get('txt_recipe', None)
         recipe_name= Recipe.objects.get(id=recipe_id)
         print("----------------------------", recipe_name)
-        name = request.POST['txt_name']
-        email= request.POST['txt_email']
+        name = request.user
+        print("name",name)
+        query_email = Realuser.objects.get(username=name)
+        print("query email",query_email.email)
+        email =query_email.email
+        # n ame = request.POST['txt_name']
+        # email= request.POST['txt_email']
         subject = request.POST['txt_subject']
         message = request.POST['txt_message']
         rate = request.POST['txt_rate']
@@ -247,24 +258,38 @@ class Comments(View):
                 print("query ========================================", query_save.name, query_save.email)
                 query_save.save()
 
-                query_rate = Review.objects.filter(recipe = recipe_name)
+                query_rate = Review.objects.filter(recipe=recipe_name)
+                print("*****************************************************************", query_rate)
+                query_image = Recipe.objects.get(recipe = recipe_name)
+                image = query_image.img
+                print("image",image)
                 c=query_rate.count()
+                print("count=", c)
                 for i in query_rate:
-                    num = int(i.rate)
+                    n = n + int(i.rate)
                     if(c==1):
-                        avgRate= num
-                    else:
-                        avgRate = num
-                    print("average", avgRate)
+                        avgRate= n
+                        query_rating = Rating(recipe_name=recipe_name, total=n, average=avgRate, image=image)
+                        query_rating.save()
+                        print("average", avgRate)
+                    elif(c>1):
+                        avgRate = n/c
+                        print("avearge",avgRate)
+                        query_rating = Rating.objects.get(recipe_name=recipe_name)
+                        print("query rating", query_rating)
+                        query_rating.total = n
+                        query_rating.average = avgRate
+                        query_rating.image = image
+                        query_rating.save()
+                        print("average", avgRate)
+                        comm["val"] = "success"
+                        return HttpResponse(json.dumps(comm), content_type="application/json")
 
-                comm["val"] = "success"
-            else:
-                comm["val"] = "failure"
-                comm["errors"] = "This Field is required"
-            return HttpResponse(json.dumps(comm), content_type="application/json")
 
         except Exception as e:
-            print("error-----",e)
+            comm["val"] = "failure"
+            # comm["errors"] = "This Field is required"
+            return HttpResponse(json.dumps(comm), content_type="application/json")
 
 
 class TotalSearch(View):

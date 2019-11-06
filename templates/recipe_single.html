@@ -112,60 +112,22 @@
 
 							<p>{{single_recipe.steps| safe}}</p>
 						</li>
-<!--						<li>-->
-<!--							<h2>02.</h2>-->
-<!--							<p>Sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus.</p>-->
-<!--						</li>-->
-<!--						<li>-->
-<!--							<h2>03.</h2>-->
-<!--							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum</p>-->
-<!--						</li>-->
-<!--						<li>-->
-<!--							<h2>04.</h2>-->
-<!--							<p>Sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis.</p>-->
-<!--						</li>-->
-<!--						<li>-->
-<!--							<h2>05.</h2>-->
-<!--							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magni.</p>-->
-<!--						</li>-->
 					</ul>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- Recipe details section end -->
-
-
-<!--<section class="comment-section spad pt-0">-->
-<!--		<div class="container">-->
-<!--			<h4>Leave a comment</h4>-->
-<!--			<form class="comment-form" method ="post" action="{% url 'comments'%}">-->
-<!--				{% csrf_token %}-->
-
-<!--				<div class="row">-->
-<!--					<div class="col-md-6">-->
-<!--						<input type="text" placeholder="Name" name="txt_name">-->
-<!--					</div>-->
-<!--					<div class="col-md-6">-->
-<!--						<input type="text" placeholder="E-mail" name="txt_email">-->
-<!--					</div>-->
-<!--					<div class="col-md-12">-->
-<!--						<input type="text" placeholder="Subject" name="txt_subject">-->
-<!--						<textarea placeholder="Message" name="txt_message"></textarea>-->
-<!--						<button class="site-btn">Send</button>-->
-<!--						<input type="hidden" name="txt_recipe" value="{{single_recipe.id}}">-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</form>-->
-<!--		</div>-->
-<!--	</section>-->
 
 
 
-<div>
-<h4><b>{{count}} Comments</b></h4>
+<div class="container">
+
 
 	<br> <section class="comments">
+	<h4>Comments</h4><br>
+	{% if count > 0 %}
+	<h6>{{count}} Comment(s)</h6><br>
+
 	 {% for comment in comments %}
     <article class="comment">
       <a class="comment-img" href="#non">
@@ -195,13 +157,19 @@
         <p class="attribution">by <a href="/">Food Blog</a></p>
       </div>
     </article>
+	{% else %}
+	<div ><h2> No comments</h2>
+		{% endif %}
   </section>
 
 </div>
 
+</div>
 
 
 	<!-- Comment section -->
+
+{% if request.user.is_authenticated %}
 	<section class="comment-section spad pt-0">
 		<div class="container">
 			<h4>Leave a comment</h4>
@@ -233,24 +201,28 @@
 </style>
 <br><br>
 				<div class="row">
-					<div class="col-md-6">
-						<input type="text" placeholder="Name" name="txt_name">
-					</div>
-					<div class="col-md-6">
-						<input type="text" placeholder="E-mail" name="txt_email">
-					</div>
+<!--					<div class="col-md-6">-->
+<!--						<input type="text" placeholder="Name" name="txt_name">-->
+<!--					</div>-->
+<!--					<div class="col-md-6">-->
+<!--						<input type="text" placeholder="E-mail" name="txt_email" >-->
+<!--					</div>-->
 					<div class="col-md-12">
-						<input type="text" placeholder="Subject" name="txt_subject">
-						<textarea placeholder="Message" name="txt_message"></textarea>
+						<input type="text" placeholder="Subject" name="txt_subject" id="txt_subject">
+
+						<textarea placeholder="Message" name="txt_message" id="txt_message"></textarea>
+	<h3 id="alert"></h3><h3 id="error"></h3>
 						<button type="submit" class="site-btn" id="btn_submit">Send</button>
 						<input type="hidden" name="txt_recipe" value="{{single_recipe.id}}">
+						<br>
+
 					</div>
 				</div>
 			</form>
 		</div>
 	</section>
 
-
+{% endif %}
 
 	<!-- Comment section -->
 

@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from geoposition.fields import GeopositionField
 
+
 class Realuser(AbstractUser):
     # address = models.CharField(max_length=100)
     token = models.CharField(max_length=255, default="111", null=True)
@@ -73,6 +74,8 @@ class Review(models.Model):
     subject = models.CharField(max_length=100)
     message = models.TextField()
     rate = models.IntegerField(blank=True,null=True)
+    # date = models.DateTimeField(auto_now_add=True, blank=True, default =0)
+
 
     class Meta:
         db_table = "review"
@@ -167,3 +170,17 @@ class GoogleMap(models.Model):
 
     def __str__(self):
         return self.name
+
+class Rating(models.Model):
+    recipe_name = models.CharField(max_length=100, null=True, blank=True)
+    total = models.IntegerField(null=True, blank=True)
+    average = models.IntegerField(null=True, blank=True)
+    image = models.FileField(blank=True, null=True)
+    # date = models.DateTimeField(auto_now_add=True, blank=True, default =0)
+
+    class Meta:
+        db_table = "rating"
+        verbose_name_plural = "Rating"
+
+    def __str__(self):
+        return self.recipe_name

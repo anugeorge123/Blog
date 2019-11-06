@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap
+from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating
 
 from django.conf import settings
 from django.contrib import admin
@@ -72,3 +72,4 @@ admin.site.register(ImageSlider, admin.ModelAdmin)
 admin.site.register(About, admin.ModelAdmin)
 admin.site.register(AboutChild, admin.ModelAdmin)
 # admin.site.register(GoogleMap, admin.ModelAdmin)
+admin.site.register(Rating, admin.ModelAdmin)

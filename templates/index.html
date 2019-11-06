@@ -215,77 +215,32 @@
 						<h3>Top rated recipes</h3>
 					</div>
 					<ul class="sp-recipes-list">
+
+						{% for item in toprated %}
 						<li>
-							<div class="rl-thumb set-bg" data-setbg="{% static 'img/thumb/1.jpg' %}"></div>
+							<div class="rl-thumb set-bg" data-setbg="{{item.image.url}}"></div>
 							<div class="rl-info">
 								<span>March 14, 2018</span>
-								<h6>Italian pasta</h6>
-<!--								<div class="rating">-->
-<!--									<i class="fa fa-star"></i>-->
-<!--									<i class="fa fa-star"></i>-->
-<!--									<i class="fa fa-star"></i>-->
-<!--									<i class="fa fa-star"></i>-->
-<!--									<i class="fa fa-star is-fade"></i>-->
-<!--								</div>-->
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="{% static 'img/thumb/2.jpg' %}"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>French Onion Soup</h6>
+								<h6>{{item.recipe_name}}</h6>
+									{{item.average}}
+
 								<div class="rating">
+
+									{% for key,values in starrating.items %}
+									{% for i in values %}
 									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
+									{% endfor %}
+									{% endfor %}
+
 								</div>
 							</div>
+
 						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="{% static 'img/thumb/3.jpg' %}"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Homemade  pasta</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="{% static 'img/thumb/4.jpg' %}"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Onion Soup Gratinee</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="{% static 'img/thumb/4.jpg' %}"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Feta Cheese Burgers</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
+						{% endfor %}
 					</ul>
+
+
+
 				</div>
 				<div class="col-lg-4 col-md-6 ftw-warp">
 					<div class="section-title">
