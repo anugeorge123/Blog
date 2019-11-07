@@ -115,6 +115,7 @@
 									  <input type="hidden" id="url" value="{% url 'home' %}">
 										{% csrf_token %}
 									{{id.as_p}}
+									<h3 id="alert"></h3>
                                       <button type="submit" class="btn btn-success" name="btn_signup" value="Signup" id="btn_signup"><i class="fa fa-sign-in"></i> Signup</button>
                                     </div>
 
@@ -222,26 +223,24 @@
 							<div class="rl-info">
 								<span>March 14, 2018</span>
 								<h6>{{item.recipe_name}}</h6>
-									{{item.average}}
+<!--									{{item.average}}-->
 
 								<div class="rating">
+								{% with ''|center:item.average as range %}
+								{% for _ in range %}
 
-									{% for key,values in starrating.items %}
-									{% for i in values %}
 									<i class="fa fa-star"></i>
-									{% endfor %}
-									{% endfor %}
+								{% endfor %}
+							{% endwith %}
 
 								</div>
 							</div>
 
 						</li>
-						{% endfor %}
+					{% endfor %}
 					</ul>
-
-
-
 				</div>
+
 				<div class="col-lg-4 col-md-6 ftw-warp">
 					<div class="section-title">
 						<h3>Most liked recipes</h3>

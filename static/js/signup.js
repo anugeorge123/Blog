@@ -43,15 +43,15 @@ $("#formid").submit(function(e) {
             }
             if (data.val =="Success")
              {
-             //
+               document.getElementById("alert").innerHTML = "Signup done successfully. Please login to continue!";
              }
              else if(data.val =="failure")
              {
-//               alert("Password Incorrect");
+ document.getElementById("alert").innerHTML = "Error";
              }
              else if(data.val=="Error")
              {
-//               alert("Error");
+ document.getElementById("alert").innerHTML = "Error";
              }
 
 
@@ -106,14 +106,15 @@ $("#loginform").submit(function(e) {
              }
             else if(data.val =="failed")
              {
-               alert("Username / Password Incorrect!");
+             document.getElementById("error").innerHTML = "Username / Password Incorrect!";
+//               alert("Username / Password Incorrect!");
              }
 
         },
         // handle a non-successful response
         error : function(xhr,errmsg,errors)
          {
-             alert("Login Failed");
+              document.getElementById("error").innerHTML = "Username / Password Incorrect!";
         console.log(xhr.status + ": " + xhr.responseText);
         console.log(errors)// provide a bit more info about the error to the console
         }
@@ -138,10 +139,18 @@ $.ajax({
 			  document.getElementById("alert").innerHTML = "Success";
 
 		}
+		else
+		{
+		 document.getElementById("alert").innerHTML = "Error During submission";
+		}
 
 	},
 	error:function()
 	{
+	if(data.val="Already exist")
+	{
+	document.getElementById("error").innerHTML = "Already exist";
+	}
 document.getElementById("error").innerHTML = "Empty fields not allowed";
 	}
 	});
@@ -150,90 +159,6 @@ document.getElementById("error").innerHTML = "Empty fields not allowed";
 
 
 
-//
-//    $("#commentform").submit(function(e) {
-//        alert("ajax calll");
-//        e.preventDefault();
-//        var formData = new FormData(this);
-//        $.ajax({
-//        url :"/comment/"
-//        type : "POST",
-//        data : formData,
-//        dataType:'json',
-//        contentType: false,
-//        processData: false,
-//            success : function(data)
-//            {
-//              alert(">>>>>>>>>>>>   ajax calll");
-//             console.log(data);
-//             if(data.val="success")
-//             {
-//            alert("success");
-//             }
-//    //         else if{
-//    //         alert("failure");
-//    //         }
-//            else
-//            {
-//                $("#commentform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
-//                  {
-//                    var current = $(this).parent();
-//                    var current_name = $(this).attr('name');
-//                    $.each(data.dict1, function (index, value)
-//                     {
-//                     if (current_name == index)
-//                         {
-//                            current.next().html("");
-//                            current.after("<div class='error'></div>");
-//                            current.next().html(value);
-//    ;
-//                          }
-//                      });
-//                  });
-//             }
-//            },
-//            // handle a non-successful response
-//            error : function(xhr,errmsg,errors) {
-//            console.log(xhr.status + ": " + xhr.responseText);
-//            console.log(errors)// provide a bit more info about the error to the console
-//            }
-//        });
-//    });
-//
-
-
-//$("#btn_send").click(function(e){
-//$("#contactform").submit()
-//});
-//$("#contactform").submit(function(e) {
-//    e.preventDefault();
-//    var formData = new FormData(this);
-//    $.ajax({
-//    url : "/contact/",
-//    type : "POST",
-//    data : formData,
-//    dataType:'json',
-//    contentType: false,
-//    processData: false,
-//        success : function(data)
-//         {
-//            console.log(data);
-//            if (data.val == "success")
-//             {
-//	        	 document.getElementById("alert").innerHTML = "Success";
-//
-//             }
-//
-//        },
-//        // handle a non-successful response
-//        error : function(xhr,errmsg,errors)
-//         {
-//              document.getElementById("error").innerHTML = "Empty field not allowed!";
-//        console.log(xhr.status + ": " + xhr.responseText);
-//        console.log(errors)// provide a bit more info about the error to the console
-//        }
-//    });
-//});
 
 
 

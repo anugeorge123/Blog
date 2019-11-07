@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^logout/$', views.Login.logout_view, name="logout"),
     url(r'^recipe_single/(?P<pk>\d+)$', views.RecipeSingle.as_view(), name="recipe_single"),
     url(r'^comment/', views.Comments.as_view(), name="comments"),
-    url(r'^search/', views.TotalSearch.as_view(), name="search"),
+    # url(r'^recipes/', views.TotalSearch.as_view(), name="search"),
 
 
     url(r'^$', views.Home.as_view(), name="home"),

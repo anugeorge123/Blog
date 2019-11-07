@@ -37,14 +37,17 @@ class Home(View):
         # query_captions = Slider_child.objects.all()
         query_icons = Links.objects.all()
         query_imageslider = ImageSlider.objects.all()
-        query_toprated = Rating.objects.all().order_by('-average')
+        query_toprated = Rating.objects.all().order_by('-average')[:5]
 
         for i in query_toprated:
             star_average = i.average
             star_dict[i] = range(i.average)
             print("dict-------------->", star_dict)
             # print("--------------------iiii",i,range(i.average))
-        return render(request, "index.html", {'id': form, 'log': login, 'product_images': query_img,'slider_details': query_background, 'socialicon': query_icons,'sliderimage':query_imageslider, 'toprated':query_toprated, 'starrating': star_dict})
+        return render(request, "index.html",
+                      {'id': form, 'log': login, 'product_images': query_img, 'slider_details': query_background,
+                       'socialicon': query_icons, 'sliderimage': query_imageslider, 'toprated': query_toprated,
+                       'starrating': star_dict})
 
     def linkmail(request):
         token = request.GET['token']
@@ -72,12 +75,12 @@ class Home(View):
 
 
                 if pwd == cpwd:
-                    timestamp = datetime.datetime.timestamp(datetime.datetime.now())
+                    # timestamp = datetime.datetime.timestamp(datetime.datetime.now())
                     obj = Realuser.objects.create_user(is_superuser="0", username=name, email=email, password=pwd)
-                    token = account_activation_token._make_hash_value(obj, timestamp)
-                    obj.token = token
-                    msg = "http://127.0.0.1:8000/email/?token=" + token + "&email=" + email
-                    send_mail('Please confirm your mail id', msg, 'anugeorge.cst@gmail.com', [email], fail_silently=False)
+                    # token = account_activation_token._make_hash_value(obj, timestamp)
+                    # obj.token = token
+                    # msg = "http://127.0.0.1:8000/email/?token=" + token + "&email=" + email
+                    # send_mail('Please confirm your mail id', msg, 'anugeorge.cst@gmail.com', [email], fail_silently=False)
                     obj.save()
                     sign['val'] = "Success"
 
@@ -140,6 +143,7 @@ class Login(View):
 class Recipes(View):
 
     def get(self, request):
+        rate_list =[]
         queryset = Category.objects.all()
         query_type = Type.objects.all()
         query_recipe = Recipe.objects.order_by('-id')
@@ -150,7 +154,14 @@ class Recipes(View):
         page = request.GET.get('page')
         recipes = paginator.get_page(page)
         print("*******************************************************", recipes)
-        return render(request, "recipes.html", {'cat': queryset, 'type': query_type,'recipe': recipes, 'socialicon':query_icons})
+        query_rating = Rating.objects.all()
+        for i in query_rating:
+            reci = i.recipe_name
+            recipee = Recipe.objects.get(recipe=reci)
+            print("request---",recipee.recipe)
+            rate_list.append(recipee)
+        print("rate list:",rate_list)
+        return render(request, "recipes.html", {'cat': queryset, 'type': query_type,'recipe': recipes, 'socialicon':query_icons,'rate':query_rating})
 
     def post(self, request):
         try:
@@ -160,14 +171,14 @@ class Recipes(View):
             print(type)
             queryset = Category.objects.all()
             query_type = Type.objects.all()
-            query_recipe = Recipe.objects.filter(Q(category_name__category_name__icontains=category)).filter(Q(type_name__type_name__contains=type))
-            print("======================", query_recipe)
+            query_recipe = Recipe.objects.filter(Q(category_name__category_name__icontains=category)).filter(Q(type_name__type_name__contains=type)).filter(Q(recipe__contains=recipename))
+            print("======================query recipe   ", query_recipe)
             count=query_recipe.count()
-            print("count=",count)
+            print("count=", count)
             if(query_recipe is not None):
                 return render(request, "recipes.html", {'recipe': query_recipe,'cat': queryset, 'type': query_type,'count':count})
             else:
-                HttpResponse("Not found!!")
+                return render(request, "recipes.html",{'error':"not found"})
         except Exception as e:
             print("error----------------------------->", e)
 
@@ -185,8 +196,10 @@ class Aboutus(View):
 class ContactView(View):
 
     def get(self, request):
+        form = Signupform()
+        login = LoginForm()
         query_icons = Links.objects.all()
-        return render(request, "contact.html", {'socialicon': query_icons})
+        return render(request, "contact.html", {'socialicon': query_icons,'id': form, 'log': login})
 
     def post(self, request):
         conta = {}
@@ -285,24 +298,14 @@ class Comments(View):
                         comm["val"] = "success"
                         return HttpResponse(json.dumps(comm), content_type="application/json")
 
-
         except Exception as e:
-            comm["val"] = "failure"
-            # comm["errors"] = "This Field is required"
+            comment_email = Realuser.objects.all()
+            for i in comment_email:
+                if email in i.email :
+                     comm["val"] = "Already exist"
+                else:
+                    comm["val1"] = "failure"
             return HttpResponse(json.dumps(comm), content_type="application/json")
 
-
-class TotalSearch(View):
-    def get(self, request):
-        return render(request, "search.html")
-
-    def post(self, request):
-        text = request.POST['txt_text']
-        query_search = Recipe.objects.filter(body_text__search=text)
-        print("query==============", query_search)
-        if(query_search is not None):
-            HttpResponse("ok")
-        else:
-            HttpResponse("No Results!")
 
 

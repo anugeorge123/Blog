@@ -42,7 +42,9 @@
 	<!-- Recipes section -->
 	<section class="recipes-page spad">
 		<div class="container">
+
 			{% if request.POST %}
+
 				<h4>{{count}} Result(s) Found</h4>
 				{% endif %}
 			<div class="row">
@@ -70,6 +72,20 @@
 						<div class="recipe-info-warp">
 							<div class="recipe-info">
 								<a href="{% url 'recipe_single' recipe.pk %}">	<h3>{{recipe.recipe}}</h3></a>
+								{% for rating in rate %}
+								{% if rating.recipe_name in recipe.recipe %}
+
+								<div class="rating">
+								{% with ''|center:rating.average as range %}
+								{% for _ in range %}
+
+									<i class="fa fa-star"></i>
+								{% endfor %}
+							{% endwith %}
+				</div>
+								{% endif %}
+								{% endfor %}
+
 	<!--								<div class="rating">-->
 	<!--									<i class="fa fa-star"></i>-->
 	<!--									<i class="fa fa-star"></i>-->

@@ -30,31 +30,30 @@ class VenueAdmin(admin.ModelAdmin):
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     search_fields = ['recipe']
-    list_display = ('recipe','category_name', 'type_name')
+    list_display = ('recipe', 'category_name', 'type_name')
 
 
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     fields = ['category_name']
 
-#
-# class RealuserAdmin(admin.ModelAdmin):
-#     model = Realuser
-#     fields = ['username', 'address', 'email']
 
 class RealuserAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['username']}),
-        ('Email', {'fields':['email']}),
-        ('Date information', {'fields': ['date_joined']})
-    ]
+     list_display = ('username', 'email')
+
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    fields = ['name','email','subject','message','recipe','rate']
+    fields = ['name', 'email', 'subject', 'message', 'recipe', 'rate']
 
 
+class SliderAdmin(admin.ModelAdmin):
+    model = Slider
+    search_fields = ['slider_caption1', 'slider_caption2', 'slider_caption3']
+    list_display = ('slider_caption1', 'slider_caption2', 'slider_caption3', 'slider_image')
+    # list_editable = ('slider_caption1', 'slider_caption1', 'slider_caption1',)
 
 
+    # list_display_links = (None, )
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Category, CategoryAdmin)
@@ -64,7 +63,7 @@ admin.site.register(Type, admin.ModelAdmin)
 admin.site.register(Ingredients, admin.ModelAdmin)
 # admin.site.register(Recipe, admin.ModelAdmin)
 admin.site.register(Review, ReviewAdmin)
-admin.site.register(Slider, admin.ModelAdmin)
+admin.site.register(Slider, SliderAdmin)
 # admin.site.register(Slider_child, admin.ModelAdmin)
 admin.site.register(Links, admin.ModelAdmin)
 admin.site.register(Contact, admin.ModelAdmin)
