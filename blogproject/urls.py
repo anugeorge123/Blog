@@ -22,7 +22,11 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blogapp.urls')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
     # url('djrichtextfield/', include('djrichtextfield.urls'))
     # url(r'^ckeditor/', include('ckeditor.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+admin.site.site_title = "Blog"
+admin.site.site_header = "Blog App"
+admin.site.index_title = 'Blog App Admin'

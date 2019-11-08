@@ -190,6 +190,24 @@
 						<div class="recipe-info-warp">
 							<div class="recipe-info">
 								<h3>{{image.recipe}}</h3>
+
+
+
+
+								{% for rating in rate %}
+								{% if rating.recipe_name in recipe.recipe %}
+
+								<div class="rating">
+								{% with ''|center:rating.average as range %}
+								{% for _ in range %}
+
+									<i class="fa fa-star"></i>
+								{% endfor %}
+							{% endwith %}
+				</div>
+								{% endif %}
+								{% endfor %}
+
 <!--								<div class="rating">-->
 <!--									<i class="fa fa-star"></i>-->
 <!--									<i class="fa fa-star"></i>-->

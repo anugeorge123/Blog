@@ -2,7 +2,11 @@ from django.contrib import admin
 from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating
 
 from django.conf import settings
-from django.contrib import admin
+
+
+from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
+
 
 
 @admin.register(GoogleMap)
@@ -19,7 +23,8 @@ class VenueAdmin(admin.ModelAdmin):
     class Media:
         if hasattr(settings, 'GOOGLE_MAPS_API_KEY') and settings.GOOGLE_MAPS_API_KEY:
             css = {
-                'all': ('css/location_picker.css',),
+
+                'all': ('css/location_picker.css', ),
             }
             js = (
                 'https://maps.googleapis.com/maps/api/js?key={}'.format(settings.GOOGLE_MAPS_API_KEY),
@@ -48,12 +53,35 @@ class ReviewAdmin(admin.ModelAdmin):
 
 class SliderAdmin(admin.ModelAdmin):
     model = Slider
-    search_fields = ['slider_caption1', 'slider_caption2', 'slider_caption3']
-    list_display = ('slider_caption1', 'slider_caption2', 'slider_caption3', 'slider_image')
-    # list_editable = ('slider_caption1', 'slider_caption1', 'slider_caption1',)
+    search_display  = ['slider_caption1', 'slider_caption2', 'slider_caption3']
+
+    list_editable = ('slider_caption1', 'slider_caption2', 'slider_caption3')
+    list_display = ('slider_image', 'slider_caption1', 'slider_caption2', 'slider_caption3')
 
 
-    # list_display_links = (None, )
+
+# class FlatPageAdmin(FlatPageAdmin):
+#     fieldsets = (
+#         (None, {'fields': ('url', 'title', 'content', 'sites')}),
+#         (_('Advanced options'), {
+#             'classes': ('collapse',),
+#             'fields': (
+#                 'enable_comments',
+#                 'registration_required',
+#                 'template_name',
+#             ),
+#         }),
+#     )
+
+class AboutUsAdmin(admin.TabularInline):
+   model = About
+   extra = 3
+class FeatureAdmin(admin.ModelAdmin):
+   fields = ('about_caption', 'about_content','about_image','about_text')
+   inlines = [AboutUsAdmin]
+
+
+
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Category, CategoryAdmin)
@@ -68,7 +96,7 @@ admin.site.register(Slider, SliderAdmin)
 admin.site.register(Links, admin.ModelAdmin)
 admin.site.register(Contact, admin.ModelAdmin)
 admin.site.register(ImageSlider, admin.ModelAdmin)
-admin.site.register(About, admin.ModelAdmin)
-admin.site.register(AboutChild, admin.ModelAdmin)
+# admin.site.register(About, admin.ModelAdmin)
+admin.site.register(About, FeatureAdmin)
 # admin.site.register(GoogleMap, admin.ModelAdmin)
 admin.site.register(Rating, admin.ModelAdmin)

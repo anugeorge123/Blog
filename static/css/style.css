@@ -1231,7 +1231,7 @@ ol {
 
 .comment-section h4 {
 	font-weight: 600;
-	margin-bottom: 75px;
+	margin-bottom: 35px;
 }
 
 .comment-form input,
@@ -1780,7 +1780,7 @@ p {
 .comments,
 .comment {
     position: relative;
-    padding-left: 80px;
+
     padding-right: 80px;
 	
 }
@@ -1798,7 +1798,7 @@ p {
     width: 3px;
     top: -20px;
     bottom: -20px;
-    background: rgba(0,0,0,0.1);
+   
 }
 
 .comment:before {

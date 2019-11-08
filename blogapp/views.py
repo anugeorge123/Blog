@@ -29,12 +29,10 @@ class Home(View):
         form = Signupform()
         login = LoginForm()
         query_img = Recipe.objects.all().order_by('-date')[:6]
-        for i in query_img:
-            print("\n ******* => ", i.img)
+        # for i in query_img:
+        #     print("\n ******* => ", i.img)
 
         query_background = Slider.objects.all()
-
-        # query_captions = Slider_child.objects.all()
         query_icons = Links.objects.all()
         query_imageslider = ImageSlider.objects.all()
         query_toprated = Rating.objects.all().order_by('-average')[:5]
@@ -42,8 +40,7 @@ class Home(View):
         for i in query_toprated:
             star_average = i.average
             star_dict[i] = range(i.average)
-            print("dict-------------->", star_dict)
-            # print("--------------------iiii",i,range(i.average))
+
         return render(request, "index.html",
                       {'id': form, 'log': login, 'product_images': query_img, 'slider_details': query_background,
                        'socialicon': query_icons, 'sliderimage': query_imageslider, 'toprated': query_toprated,
@@ -59,7 +56,7 @@ class Home(View):
             return redirect("/")
         else:
             return HttpResponse("Invalid Token")
-        # return HttpResponse("token="+token+" email="+mail)
+
 
     def post(self, request):
         sign = {}
@@ -71,16 +68,14 @@ class Home(View):
                 email = form.cleaned_data['email']
                 pwd = form.cleaned_data['pwd']
                 cpwd = form.cleaned_data['cpwd']
-                print("name----->", name, "email------>", email)
-
 
                 if pwd == cpwd:
-                    # timestamp = datetime.datetime.timestamp(datetime.datetime.now())
+                    timestamp = datetime.datetime.timestamp(datetime.datetime.now())
                     obj = Realuser.objects.create_user(is_superuser="0", username=name, email=email, password=pwd)
-                    # token = account_activation_token._make_hash_value(obj, timestamp)
-                    # obj.token = token
-                    # msg = "http://127.0.0.1:8000/email/?token=" + token + "&email=" + email
-                    # send_mail('Please confirm your mail id', msg, 'anugeorge.cst@gmail.com', [email], fail_silently=False)
+                    token = account_activation_token._make_hash_value(obj, timestamp)
+                    obj.token = token
+                    msg = "http://127.0.0.1:8000/email/?token=" + token + "&email=" + email
+                    send_mail('Please confirm your mail id', msg, 'anugeorge.cst@gmail.com', [email], fail_silently=False)
                     obj.save()
                     sign['val'] = "Success"
 
@@ -88,16 +83,13 @@ class Home(View):
                     sign['val'] = "failure"
 
             except Exception as e:
-                print("Error:================================== ", e)
+                print("Error: ", e)
                 sign['result'] = "Error"
 
 
         else:
-            print("form eroors: ---------------->", form.errors)
             sign['val'] = "Error in forms"
             sign['dict1'] = form.errors
-            # print("non field-----------", form.non_field_errors())
-                # dict1['nonfield'] = form.non_field_errors()
         return HttpResponse(json.dumps(sign), content_type="application/json")
 
 
@@ -111,7 +103,6 @@ class Login(View):
             uname = login1.cleaned_data['uname']
             pwd = login1.cleaned_data['pwd']
             print("uname: ", uname, "password: ", pwd)
-
             try:
 
                 obj = Realuser.objects.get(username=uname)
@@ -132,8 +123,8 @@ class Login(View):
         form = Signupform()
         login = LoginForm()
         query_img = Recipe.objects.all().order_by('-id')[:6]
-        for i in query_img:
-            print("\n ******* => ", i.img)
+        # for i in query_img:
+        #     print("\n ******* => ", i.img)
 
         query_background = Slider.objects.all()
 
@@ -153,7 +144,6 @@ class Recipes(View):
         paginator = Paginator(query_recipe, 9)
         page = request.GET.get('page')
         recipes = paginator.get_page(page)
-        print("*******************************************************", recipes)
         query_rating = Rating.objects.all()
         for i in query_rating:
             reci = i.recipe_name
@@ -210,6 +200,7 @@ class ContactView(View):
         try:
             if name and email and subject and message:
                 print("name:", name, "email:", email, "subject", subject, "message:", message)
+                send_mail('subject', message,  email, ['anugeorge.cst@gmail.com'], fail_silently=False)
                 query_contact = Contact.objects.create(contact_name = name, contact_email = email, contact_subject = subject, contact_message = message)
                 print(query_contact)
                 # query_contact.save()
@@ -233,16 +224,9 @@ class RecipeSingle(DetailView):
         data['category'] = Category.objects.all()
         data['comments'] = Review.objects.all()
         data['count'] = Review.objects.all().count()
-
         return data
 
 class Comments(View):
-    # def get(self, request):
-    #     query_icons = Links.objects.all()
-    #     query_comments = Review.objects.all()
-    #     print("commentssssssssssssssssssssssssss",query_comments)
-    #     print("haiiiiiiiiiiii")
-    #     return render(request, "recipe_single.html", {'socialicon': query_icons,'comments': query_comments})
 
     def post(self, request):
         n=0

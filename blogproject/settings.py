@@ -20,9 +20,9 @@ ALLOWED_HOSTS = ['*']
 
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.ionos.com'
-EMAIL_HOST_USER = 'albin@cloudaven.com'
-EMAIL_HOST_PASSWORD = 'Albin@123'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'itsmeanugeorge123@gmail.com'
+EMAIL_HOST_PASSWORD = '9526989237'
 EMAIL_PORT = 587
 
 
@@ -44,8 +44,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'ckeditor',
     'geoposition',
+    'django_google_maps',
+    'django.contrib.flatpages',
 ]
 GEOPOSITION_GOOGLE_MAPS_API_KEY ='AIzaSyBGq0HkTEVxNLvYVJz-XsjON8jP8GLWnSY'
+GOOGLE_MAPS_API_KEY= 'AIzaSyBGq0HkTEVxNLvYVJz-XsjON8jP8GLWnSY'
 
 CKEDITOR_CONFIGS = {
     # django-ckeditor defaults
@@ -89,6 +92,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 
 ]
 

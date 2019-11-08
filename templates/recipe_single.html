@@ -130,8 +130,8 @@
 
 	 {% for comment in comments %}
     <article class="comment">
-      <a class="comment-img" href="#non">
-        <img src="{% static 'img/instagram/1.jpg' %}" alt="" width="50" height="50">
+
+
       </a>
 
       <div class="comment-body">
@@ -145,18 +145,7 @@
 
     </article>
 	 {% endfor %}
-      <article class="comment">
-      <a class="comment-img" href="#non">
-        <img src="{% static 'img/instagram/3.jpg' %}" alt="" width="50" height="50">
-      </a>
-      <div class="comment-body">
-        <div class="text">
-          <p>if you are interested for  more about me visited my profile on social page</p>
-          <p>To visit me you can click my name  <a target="_blank" href="http://www.facebook.com">Food Blog</a> and send me frends request or send me a message in inbox</p>
-        </div>
-        <p class="attribution">by <a href="/">Food Blog</a></p>
-      </div>
-    </article>
+
 	{% else %}
 	<div ><h2> No comments</h2>
 		{% endif %}
@@ -171,7 +160,7 @@
 
 {% if request.user.is_authenticated %}
 	<section class="comment-section spad pt-0">
-		<div class="container">
+		<div class="container"><br>
 			<h4>Leave a comment</h4>
 			<form class="comment-form"  id="commentform" method="post">
 				{% csrf_token %}
@@ -195,7 +184,8 @@
 	<style>
   .star-rating {
   line-height:32px;
-  font-size:1.25em;
+  font-size:2.25em;
+
 }
 .star-rating .fa-star{color: yellow;}
 </style>

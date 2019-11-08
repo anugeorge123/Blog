@@ -93,7 +93,7 @@ class Slider(models.Model):
 
     class Meta:
         db_table = "slider"
-        verbose_name_plural  = "Slider"
+        verbose_name_plural  = "Sliders"
 
     def __str__(self):
         return self.slider_image.url
@@ -146,6 +146,7 @@ class About(models.Model):
         return  self.about_caption
 
 class AboutChild(models.Model):
+    about_caption = models.ForeignKey(About, on_delete=models.CASCADE, related_name='caption')
     about_icons = models.FileField(blank=True, null=True)
     about_number = models.CharField(max_length=100,blank=True, null=True)
     about_iconitem = models.CharField(max_length=100,blank=True, null=True)
