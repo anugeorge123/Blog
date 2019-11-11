@@ -157,11 +157,6 @@ document.getElementById("error").innerHTML = "Empty fields not allowed";
 });
 
 
-
-
-
-
-
 $("#btn_send").click(function(e){
 e.preventDefault();
 $.ajax({
@@ -183,5 +178,49 @@ $.ajax({
 	}
 	});
 });
+
+
+$("#btn_newsletter").click(function(e){
+e.preventDefault();
+$.ajax({
+	url:"/about/",
+	type:"post",
+	datatype:"json",
+	data:$("#newsletterform").serialize(),
+	success:function(data)
+	{
+
+		if(data.val=="success")
+		{
+			document.getElementById("alert").innerHTML = "Subscribed !";
+		}
+		else
+		{
+		document.getElementById("alert").innerHTML = "Error !";
+		}
+
+
+	},
+	error:function()
+	{
+
+
+    $("#newsletterform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+         {
+            var current = $(this).parent();
+            var current_name = $(this).attr('name');
+            alert(data.error);
+            $.each(data.error, function (index, value)
+            {
+//            alert(index, current_name);
+            $('#alert').html(value);
+            });
+         });
+
+ document.getElementById("alert").innerHTML = "Empty field not allowed!";
+	}
+	});
+});
+
 
 

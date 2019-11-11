@@ -6,7 +6,6 @@ from geoposition.fields import GeopositionField
 
 
 class Realuser(AbstractUser):
-    # address = models.CharField(max_length=100)
     token = models.CharField(max_length=255, default="111", null=True)
 
     class Meta:
@@ -146,7 +145,7 @@ class About(models.Model):
         return  self.about_caption
 
 class AboutChild(models.Model):
-    about_caption = models.ForeignKey(About, on_delete=models.CASCADE, related_name='caption')
+    about_caption = models.ForeignKey(About, on_delete=models.CASCADE, related_name='caption',blank=True,null=True)
     about_icons = models.FileField(blank=True, null=True)
     about_number = models.CharField(max_length=100,blank=True, null=True)
     about_iconitem = models.CharField(max_length=100,blank=True, null=True)
@@ -185,3 +184,13 @@ class Rating(models.Model):
 
     def __str__(self):
         return self.recipe_name
+
+class Newsletter(models.Model):
+    email = models.CharField(max_length=100,null = True,blank=True)
+
+    class Meta:
+        db_table = "newsletter"
+        verbose_name_plural = "News Letter"
+
+    def __str__(self):
+        return self.email

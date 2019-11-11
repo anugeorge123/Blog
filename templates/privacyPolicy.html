@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+	<section class="page-top-section set-bg" data-setbg="{% static 'img/page-top-bg.jpg' %}">
+		<div class="container">
+			<h2>{{ flatpage.title }}</h2>
+		</div>
+	</section>
+
+
+	<!-- About section -->
+	<section class="about-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 about-text">
+
+
+					<p>{{ flatpage.content }}</p>
+
+
+				</div>
+				<div class="col-lg-6">
+					<img src="{% static 'img/about.jpg' %}" alt="">
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+{% endblock%}

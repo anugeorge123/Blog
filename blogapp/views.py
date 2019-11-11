@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, request
 from django.views.generic import View, DetailView
-from blogapp.models import Realuser, Category, Ingredients, Type,Recipe, Slider,  Review,  Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating
+from blogapp.models import Realuser, Category, Ingredients, Type,Recipe, Slider,  Review,  Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating, Newsletter
 from django.contrib.auth import login, authenticate, logout
 # from django.contrib.auth.models import Realuser
 from django.contrib.auth.hashers import check_password
-from .forms import Signupform, LoginForm
+from .forms import Signupform, LoginForm, NewsLetterForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 
@@ -162,7 +162,7 @@ class Recipes(View):
             queryset = Category.objects.all()
             query_type = Type.objects.all()
             query_recipe = Recipe.objects.filter(Q(category_name__category_name__icontains=category)).filter(Q(type_name__type_name__contains=type)).filter(Q(recipe__contains=recipename))
-            print("======================query recipe   ", query_recipe)
+            # print("======================query recipe   ", query_recipe)
             count=query_recipe.count()
             print("count=", count)
             if(query_recipe is not None):
@@ -179,9 +179,33 @@ class Aboutus(View):
         query_about = About.objects.all()
         query_aboutas = AboutChild.objects.all()
         query_map = GoogleMap.objects.all()
-        print("-------------------------------------------------------------------------------", query_map)
-        return render(request, "about.html", {'socialicon': query_icons, 'about': query_about,'aboutas':query_aboutas,'map':query_map})
+        newsletter = NewsLetterForm()
+        print("------------------------------------------------------------------------------>", newsletter)
+        return render(request, "about.html", {'socialicon': query_icons, 'about': query_about,'aboutas':query_aboutas,'map':query_map,'newsletter':newsletter})
 
+    def post(self, request):
+        newsletter_dict = {}
+        newsletter = NewsLetterForm(request.POST)
+        print("requetPOST -- ",request.POST)
+        print("errors-->",newsletter.errors)
+        if newsletter.is_valid():
+            print("if")
+            try:
+                print(self.request.POST)
+                email = newsletter.cleaned_data['email']
+                print("email ---------------->",email)
+                if email !="":
+                    query_email = Newsletter(email=email)
+                    print("query",query_email)
+                    query_email.save()
+                    newsletter_dict['val'] = "success"
+                    return HttpResponse(json.dumps(newsletter_dict), content_type="application/json")
+            except Exception as e:
+                newsletter_dict['val'] = "failure"
+                newsletter_dict['error'] = newsletter.errors
+                print(e)
+
+        return HttpResponse(json.dumps(newsletter_dict), content_type="application/json")
 
 class ContactView(View):
 

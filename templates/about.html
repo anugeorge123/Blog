@@ -18,7 +18,6 @@
 					<h2>{{aboutas.about_caption}}</h2>
 					<p>{{aboutas.about_content}}</p>
 
-
 				</div>
 				<div class="col-lg-6">
 					<img src="{{aboutas.about_image.url}}" alt="">
@@ -37,7 +36,6 @@
 
 				<div class="row">	{% for details in aboutas %}
 						<div class="col-lg-3 col-sm-6 fact-item">
-
 						<div class="fact-icon">
 							<img src="{{details.about_icons.url}}" alt="">
 						</div>
@@ -61,9 +59,12 @@
 			<div class="row">
 				<div class="col-lg-6 nl-text">
 					<h2>Subscribe to our newsletter</h2>
-					<form class="newsletter-form">
-						<input type="text" placeholder="Your E-mail">
-						<button class="site-btn">Subscribe</button>
+					<form class="newsletter-form" id="newsletterform" method="post">
+						{% csrf_token %}
+						{{newsletter.as_p}}
+<!--						<input type="text" placeholder="Your E-mail">-->
+						<span id="alert"></span>
+						<button class="site-btn" id="btn_newsletter">Subscribe</button>
 					</form>
 					{% for aboutas in about %}
 					<p> {{aboutas.about_text}}</p>

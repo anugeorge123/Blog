@@ -1,17 +1,14 @@
 from django import forms
-from .models import Realuser,Category, Ingredients, Recipe,Type
+from .models import Realuser,Category, Ingredients, Recipe,Type, Newsletter
 
 
 class Signupform(forms.Form):
     name = forms.CharField(label='Name', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    # address = forms.CharField(label='Address', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Email', max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     pwd = forms.CharField(label='Password', required=False, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     cpwd = forms.CharField(label='Confirm Password', required=False, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean_pwd(self):
-        print("clean data--------------->pasworddd")
-
         password = self.cleaned_data.get('pwd')
         if(password == ""):
             raise forms.ValidationError("This field is required!!")
@@ -75,7 +72,34 @@ class LoginForm(forms.Form):
     class Meta:
         model = Realuser
 
-#
+
+class NewsLetterForm(forms.Form):
+
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Your E-mail'}),required=False)
+    print("email")
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if '@' in email:
+            pass
+        else:
+            raise forms.ValidationError("Invalid Email")
+        if(email == ""):
+            raise forms.ValidationError("This field is required!!")
+        emails = Newsletter.objects.filter(email=email)
+
+        for i in emails:
+            if(i.email == email):
+              raise forms.ValidationError("Email Already Exist!")
+
+        return email
+
+    class Meta:
+        model = Newsletter
+
+
+
 # class RecipesForm(forms.Form):
 #     category = forms.CharField(label="Category Name", max_length=100)
 #     # ingredients = forms.CharField(label="Ingredients", max_length=100)

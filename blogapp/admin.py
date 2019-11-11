@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating
+from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating, Newsletter
 
 from django.conf import settings
 
@@ -73,30 +73,27 @@ class SliderAdmin(admin.ModelAdmin):
 #         }),
 #     )
 
-class AboutUsAdmin(admin.TabularInline):
-   model = About
-   extra = 3
-class FeatureAdmin(admin.ModelAdmin):
+class AboutChild(admin.TabularInline):
+   model = AboutChild
+
+
+class AboutAdmin(admin.ModelAdmin):
    fields = ('about_caption', 'about_content','about_image','about_text')
-   inlines = [AboutUsAdmin]
-
-
+   inlines = [AboutChild]
 
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Realuser, RealuserAdmin)
-
 admin.site.register(Type, admin.ModelAdmin)
 admin.site.register(Ingredients, admin.ModelAdmin)
-# admin.site.register(Recipe, admin.ModelAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Slider, SliderAdmin)
-# admin.site.register(Slider_child, admin.ModelAdmin)
 admin.site.register(Links, admin.ModelAdmin)
 admin.site.register(Contact, admin.ModelAdmin)
 admin.site.register(ImageSlider, admin.ModelAdmin)
 # admin.site.register(About, admin.ModelAdmin)
-admin.site.register(About, FeatureAdmin)
+admin.site.register(About, AboutAdmin)
 # admin.site.register(GoogleMap, admin.ModelAdmin)
 admin.site.register(Rating, admin.ModelAdmin)
+admin.site.register(Newsletter, admin.ModelAdmin)

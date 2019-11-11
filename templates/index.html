@@ -4,10 +4,6 @@
 {% block content %}
 {% csrf_token %}
 
-
-
-
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -35,7 +31,6 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-
                                 <form method="post" id="loginform">
 									{% csrf_token %}
 										{{log.as_p}}
@@ -55,42 +50,7 @@
             </div>
 
 
-<!--<div class="container">-->
 
-<!--  &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
-
-<!--  &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--  <div class="modal fade" id="myModal1">-->
-<!--    <div class="modal-dialog modal-lg">-->
-<!--      <div class="modal-content">-->
-
-<!--        &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--        <div class="modal-header">-->
-<!--          <h4 class="modal-title">Signup</h4>-->
-<!--          <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--		<form id="formid"  method="get">-->
-<!--			{% csrf_token %}-->
-<!--			<center>-->
-<!--				<table>-->
-<!--				<div class="form-group">-->
-<!--			{{id.as_table}}-->
-<!--				</div>-->
-<!--					</table>-->
-<!--			</center>`-->
-<!--        &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--        <div class="modal-footer">-->
-<!--			 <input type="submit" name="btn_signup" id="btn_signup" value="Signup">-->
-<!--        &lt;!&ndash;  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_signup" >Signup</button> &ndash;&gt;-->
-<!--        </div>-->
-<!--	</form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--</div>-->
 
 
 
