@@ -1,5 +1,5 @@
 from django import forms
-from .models import Realuser,Category, Ingredients, Recipe,Type, Newsletter
+from .models import Realuser,Category, Ingredients, Recipe,Type, Newsletter, Contact, Review
 
 
 class Signupform(forms.Form):
@@ -72,11 +72,9 @@ class LoginForm(forms.Form):
     class Meta:
         model = Realuser
 
-
 class NewsLetterForm(forms.Form):
 
     email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Your E-mail'}),required=False)
-    print("email")
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -98,6 +96,64 @@ class NewsLetterForm(forms.Form):
     class Meta:
         model = Newsletter
 
+class CommentForm(forms.Form):
+    subject = forms.CharField(label='',widget=forms.TextInput(attrs={'class': 'contact-form textarea','placeholder':'Subject'}))
+    message = forms.CharField(label='',widget=forms.TextInput(attrs={'class':'contact-form textarea','placeholder':'Message'}))
+
+
+    def clean_subject(self):
+            subject = self.cleaned_data.get('subject')
+            if (subject == ""):
+                raise forms.ValidationError("This field is required!!")
+            return subject
+
+    def clean_message(self):
+            message = self.cleaned_data.get('message')
+            if (message == ""):
+                raise forms.ValidationError("This field is required!!")
+            return message
+
+    class Meta:
+        model = Review
+
+class CotactForm(forms.Form):
+    name = forms.CharField(label='',widget=forms.TextInput(attrs={'class': 'contact-form textarea','placeholder':'Name'}))
+    email = forms.CharField(label='',widget=forms.TextInput(attrs={'class': 'contact-form textarea','placeholder':'E-mail'}))
+    subject = forms.CharField(label='',widget=forms.TextInput(attrs={'class': 'contact-form textarea','placeholder':'Subject'}))
+    message = forms.CharField(label='',widget=forms.TextInput(attrs={'class':'contact-form textarea','placeholder':'Message'}))
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if (name == ""):
+            raise forms.ValidationError("This field is required!!")
+        return name
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if '@' in email:
+            pass
+        else:
+            raise forms.ValidationError("Please input a valid email id !")
+            return email
+
+        if (email == ""):
+            raise forms.ValidationError("This field is required!!")
+        return email
+
+    def clean_subject(self):
+            subject = self.cleaned_data.get('subject')
+            if (subject == ""):
+                raise forms.ValidationError("This field is required!!")
+            return subject
+
+    def clean_message(self):
+            message = self.cleaned_data.get('message')
+            if (message == ""):
+                raise forms.ValidationError("This field is required!!")
+            return message
+
+    class Meta:
+        model = Contact
 
 
 # class RecipesForm(forms.Form):

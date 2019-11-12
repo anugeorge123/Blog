@@ -67,13 +67,13 @@ class Recipe(models.Model):
 
 
 class Review(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipes',null=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipes',null=True,blank=True)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=70, blank=True, null=True)
     subject = models.CharField(max_length=100)
     message = models.TextField()
     rate = models.IntegerField(blank=True,null=True)
-    # date = models.DateTimeField(auto_now_add=True, blank=True, default =0)
+    date = models.DateTimeField(auto_now_add =True, blank=True, null=True)
 
 
     class Meta:
@@ -191,6 +191,18 @@ class Newsletter(models.Model):
     class Meta:
         db_table = "newsletter"
         verbose_name_plural = "News Letter"
+
+    def __str__(self):
+        return self.email
+
+class ContactDetails(models.Model):
+    address = models.CharField(max_length=255, null=True, blank=True)
+    phone = models.CharField(max_length=100,null=True, blank=True)
+    email = models.CharField(max_length=100,null=True, blank=True)
+
+    class Meta:
+        db_table = "contactdetails"
+        verbose_name_plural = "Contact Details"
 
     def __str__(self):
         return self.email

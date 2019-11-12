@@ -47,24 +47,100 @@
 	<!-- Hero section end -->
 
 
-	<section class="contact-section spad">
+<!--	<section class="contact-section spad">-->
+<!--		<div class="container">-->
+<!--			<div class="row">-->
+<!--				<div class="col-lg-8">-->
+<!--					<div class="contact-form-warp">-->
+<!--						<h4>Leave a comment</h4>-->
+<!--						<form class="contact-form" id="contactform" >-->
+<!--							<div class="row">-->
+<!--								<span id ="alert"></span>	<span id ="error"></span><br>-->
+<!--								{{contactform_key}}-->
+<!--&lt;!&ndash;								<div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;									<input type="text" placeholder="Name" name="txt_name">&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;									<input type="text" placeholder="E-mail" name="txt_email">&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;									<input type="text" placeholder="Subject" name="txt_subject">&ndash;&gt;-->
+<!--&lt;!&ndash;									<textarea placeholder="Message" name="txt_message"></textarea>&ndash;&gt;-->
+
+<!--									<button class="site-btn" id="btn_send">Send</button>-->
+
+<!--								</div>-->
+<!--							</div>-->
+<!--						</form>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="col-lg-4">-->
+<!--					<div class="contact-logo">-->
+<!--						<a href="/"	><img src="{% static 'img/logo.png' %}" alt=""></a>-->
+<!--					</div>-->
+<!--					<div class="contact-info">-->
+<!--						<ul class="ct-list">-->
+<!--							<li>-->
+<!--								<h6>Address:</h6>-->
+<!--								<p>481 Creekside Lane Avila</p>-->
+<!--								<p>Beach, CA 93424</p>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<h6>Phone:</h6>-->
+<!--								<p>+53 345 7953 32453</p>-->
+<!--								<p>+53 345 7557 822112</p>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<h6>Email:</h6>-->
+<!--								<p>yourmail@gmail.com</p>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--						<div class="contact-social">-->
+<!--							{% for icon in socialicon %}-->
+<!--							<a href="{{icon.social_url}}"  target="_blank" ><i class="{{icon.icon_name}}"></i></a>-->
+<!--							{% endfor %}-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		-->
+<!--		-->
+<!--		-->
+<!--		-->
+<!--		-->
+
+
+
+
+
+
+
+
+		<section class="contact-section spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="contact-form-warp">
 						<h4>Leave a comment</h4>
-						<form class="contact-form" id="contactform" >
+						<form class="contact-form" id="contactform" method="post">
+<!--							<span id ="alert"></span>	<span id ="error"></span><br>-->
 							<div class="row">
-								<div class="col-md-6">
-									<input type="text" placeholder="Name" name="txt_name">
-								</div>
-								<div class="col-md-6">
-									<input type="text" placeholder="E-mail" name="txt_email">
-								</div>
 								<div class="col-md-12">
-									<input type="text" placeholder="Subject" name="txt_subject">
-									<textarea placeholder="Message" name="txt_message"></textarea><h3 id ="alert"></h3>	<h3 id ="error"></h3>
+										{{contactform_key}}
 									<button class="site-btn" id="btn_send">Send</button>
+
+
+									<div class="container">
+									  <div class="item-1"></div>
+									  <div class="item-2"></div>
+									  <div class="item-3"></div>
+									  <div class="item-4"></div>
+									  <div class="item-5"></div>
+									</div>
+
+									<div class="alert alert-success" role="alert" id="alert"></div>
+
+
 
 								</div>
 							</div>
@@ -77,20 +153,22 @@
 					</div>
 					<div class="contact-info">
 						<ul class="ct-list">
+                            {% for i in contact_details %}
 							<li>
 								<h6>Address:</h6>
-								<p>481 Creekside Lane Avila</p>
+								<p>{{i.address}}</p>
 								<p>Beach, CA 93424</p>
 							</li>
 							<li>
 								<h6>Phone:</h6>
-								<p>+53 345 7953 32453</p>
+								<p>{{i.phone}}</p>
 								<p>+53 345 7557 822112</p>
 							</li>
 							<li>
 								<h6>Email:</h6>
-								<p>yourmail@gmail.com</p>
+								<p>{{i.email}}</p>
 							</li>
+                            {% endfor %}
 						</ul>
 						<div class="contact-social">
 							{% for icon in socialicon %}
@@ -100,6 +178,17 @@
 					</div>
 				</div>
 			</div>
+
+
+
+
+
+
+
+
+
+
+
 			<!-- map -->
 <!--			<div class="location-map" id="map-canvas"></div>-->
 <!--		</div>-->

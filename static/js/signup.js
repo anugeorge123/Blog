@@ -133,31 +133,42 @@ $.ajax({
 	data:$("#commentform").serialize(),
 	success:function(data)
 	{
-		if(data.val="success")
+
+		if(data.val=="success")
 		{
 
 			  document.getElementById("alert").innerHTML = "Success";
 
 		}
-		else
+		if(data.val=="rate empty")
 		{
-		 document.getElementById("alert").innerHTML = "Error During submission";
+		 document.getElementById("alert").innerHTML = "Please give a rating for the recipe";
+		}
+
+        if(data.val=="error")
+		{
+		 document.getElementById("alert").innerHTML = "Empty fields not allowed";
 		}
 
 	},
 	error:function()
 	{
+	if(data.val =="error")
+	{
+		document.getElementById("alert").innerHTML = "Empty fields not allowed";
+	}
 	if(data.val="Already exist")
 	{
 	document.getElementById("error").innerHTML = "Already exist";
 	}
-document.getElementById("error").innerHTML = "Empty fields not allowed";
+    document.getElementById("error").innerHTML = "Empty fields not allowed";
 	}
 	});
 });
 
 
 $("#btn_send").click(function(e){
+
 e.preventDefault();
 $.ajax({
 	url:"/contact/",
@@ -166,18 +177,66 @@ $.ajax({
 	data:$("#contactform").serialize(),
 	success:function(data)
 	{
-		if(data.val="success")
+
+		if(data.val=="success")
 		{
 			document.getElementById("alert").innerHTML = "Success";
 		}
 
+		else
+		{
+//        alert(data.error)
+//		 $("#contactform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+//         {
+//            var current = $(this).parent();
+//            var current_name = $(this).attr('name');
+//            $.each(data.error, function (index, value)
+//            {
+//            $('#alert').html(value);
+////            current.next().html(value);
+//            });
+//         });
+//		}
+
+        $("#contactform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+                  {
+
+                            var current = $(this);
+                            var current_name = $(this).attr('name');
+                            $.each(data.error, function (index, value)
+                            {
+
+                              if (current_name == index)
+                              {
+                                 console.log(current);
+                                 current.after("<div class='error'></div>");
+                                 current.next().html(value);
+                              }
+                             });
+                  });
+
+}
+
 	},
 	error:function()
 	{
- document.getElementById("error").innerHTML = "Empty field not allowed!";
+
+ $("#contactform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
+         {
+            var current = $(this).parent();
+            var current_name = $(this).attr('name');
+            alert(data.error);
+            $.each(data.error, function (index, value)
+            {
+//            alert(index, current_name);
+            $('#alert').html(value);
+            });
+         });
+
+// document.getElementById("alert").innerHTML = "Empty field not allowed!";
 	}
 	});
-});
+});;
 
 
 $("#btn_newsletter").click(function(e){
