@@ -67,32 +67,26 @@
 				<div class="col-lg-4 col-md-6">
 					<div class="recipe">
 <!--				<a href="{% url 'recipe_single' recipe.pk %}">	<h2>{{recipe.recipe}}</h2></a>-->
-						<a href="{% url 'recipe_single' recipe.pk %}">	<img src="{{recipe.img.url}}" alt=""></a>
+						<a href="{% url 'recipe_single' recipe.slug %}">	<img src="{{recipe.img.url}}" alt=""></a>
 
 						<div class="recipe-info-warp">
 							<div class="recipe-info">
-								<a href="{% url 'recipe_single' recipe.pk %}">	<h3>{{recipe.recipe}}</h3></a>
+								<a href="{% url 'recipe_single' recipe.slug %}">	<h3>{{recipe.recipe}}</h3></a>
 								{% for rating in rate %}
 								{% if rating.recipe_name in recipe.recipe %}
 
 								<div class="rating">
 								{% with ''|center:rating.average as range %}
-								{% for _ in range %}
+								{% for _ in "xxxxx" %}
 
-									<i class="fa fa-star"></i>
+									<i class="fa fa-star {% if forloop.counter <= rating.average  %} fa fa-star-o {% endif %} "></i>
+
 								{% endfor %}
 							{% endwith %}
-				</div>
+						</div>
 								{% endif %}
 								{% endfor %}
 
-	<!--								<div class="rating">-->
-	<!--									<i class="fa fa-star"></i>-->
-	<!--									<i class="fa fa-star"></i>-->
-	<!--									<i class="fa fa-star"></i>-->
-	<!--									<i class="fa fa-star"></i>-->
-	<!--									<i class="fa fa-star is-fade"></i>-->
-	<!--								</div>-->
 							</div>
 						</div>
 					</div>
@@ -101,7 +95,6 @@
 			</div>
 
 			<div class="site-pagination">
-
 				{% if recipe.has_other_pages %}
   				<ul class="pagination">
    				{% if recipe.has_previous %}

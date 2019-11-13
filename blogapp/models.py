@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from geoposition.fields import GeopositionField
-
+from django.urls import reverse
 
 class Realuser(AbstractUser):
     token = models.CharField(max_length=255, default="111", null=True)
@@ -57,6 +57,7 @@ class Recipe(models.Model):
     img = models. FileField(blank=True, null=True)
     steps = RichTextField(blank=True, null=True)
     date = models.DateField(default=datetime.date.today, null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True)
 
     class Meta:
        db_table = "recipe"
@@ -64,6 +65,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.recipe
+
+    # def get_absolute_url(self):
+    #     return reverse('article_detail', kwargs={'slug': self.slug})
 
 
 class Review(models.Model):
@@ -97,6 +101,11 @@ class Slider(models.Model):
     def __str__(self):
         return self.slider_image.url
 
+    def admin_image(self):
+        return '<img src="media/slider-bg-2.jpg"/>' % self.slider_image
+
+    admin_image.allow_tags = True
+
 class Links(models.Model):
     icon_name = models.CharField(max_length=100, blank=True, null=True)
     social_url = models.URLField(max_length=100, blank=True, null=True)
@@ -120,6 +129,7 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.contact_name
+
 
 class ImageSlider(models.Model):
     image = models. FileField(blank=True, null=True)

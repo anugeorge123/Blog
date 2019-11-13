@@ -136,8 +136,9 @@ $.ajax({
 
 		if(data.val=="success")
 		{
-
-			  document.getElementById("alert").innerHTML = "Success";
+                document.getElementById("alert").innerHTML = "Success";
+                $("id_msg").text(data.msg);
+                $("id_name").text(data.name);
 
 		}
 		if(data.val=="rate empty")
@@ -177,26 +178,14 @@ $.ajax({
 	data:$("#contactform").serialize(),
 	success:function(data)
 	{
-
 		if(data.val=="success")
 		{
 			document.getElementById("alert").innerHTML = "Success";
+
 		}
 
 		else
 		{
-//        alert(data.error)
-//		 $("#contactform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
-//         {
-//            var current = $(this).parent();
-//            var current_name = $(this).attr('name');
-//            $.each(data.error, function (index, value)
-//            {
-//            $('#alert').html(value);
-////            current.next().html(value);
-//            });
-//         });
-//		}
 
         $("#contactform :input:not(input[type='hidden'],input[type='submit'])").each(function ()
                   {

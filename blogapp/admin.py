@@ -1,12 +1,8 @@
 from django.contrib import admin
 from .models import Realuser, Category, Type, Ingredients, Recipe, Review, Slider, Links, Contact, ImageSlider, About, AboutChild, GoogleMap, Rating, Newsletter, ContactDetails
-
 from django.conf import settings
-
-
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
-
 
 
 @admin.register(GoogleMap)
@@ -36,6 +32,7 @@ class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     search_fields = ['recipe']
     list_display = ('recipe', 'category_name', 'type_name')
+    prepopulated_fields = {'slug': ('recipe',)}
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -45,6 +42,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class RealuserAdmin(admin.ModelAdmin):
      list_display = ('username', 'email')
+
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
@@ -58,21 +56,6 @@ class SliderAdmin(admin.ModelAdmin):
     list_editable = ('slider_caption1', 'slider_caption2', 'slider_caption3')
     list_display = ('slider_image', 'slider_caption1', 'slider_caption2', 'slider_caption3')
 
-
-
-# class FlatPageAdmin(FlatPageAdmin):
-#     fieldsets = (
-#         (None, {'fields': ('url', 'title', 'content', 'sites')}),
-#         (_('Advanced options'), {
-#             'classes': ('collapse',),
-#             'fields': (
-#                 'enable_comments',
-#                 'registration_required',
-#                 'template_name',
-#             ),
-#         }),
-#     )
-
 class AboutChild(admin.TabularInline):
    model = AboutChild
 
@@ -80,7 +63,6 @@ class AboutChild(admin.TabularInline):
 class AboutAdmin(admin.ModelAdmin):
    fields = ('about_caption', 'about_content','about_image','about_text')
    inlines = [AboutChild]
-
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Category, CategoryAdmin)

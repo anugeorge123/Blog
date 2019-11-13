@@ -105,11 +105,8 @@
 					</div>
 				</div>
 				<div class="col-lg-7">
-
 					<ul class="recipe-info-list">
-
 						<li>
-
 							<p>{{single_recipe.steps| safe}}</p>
 						</li>
 					</ul>
@@ -129,9 +126,9 @@
     <article class="comment"></a>
       <div class="comment-body">
         <div class="text">
-          <p>{{comment.message}}</p>
+          <p id="id_msg">{{comment.message}}</p>
         </div>
-        <p class="attribution">by <a href="#non">{{comment.name}}</a> </p>
+        <p class="attribution" id="id_name">by <a href="#non">{{comment.name}}</a>&nbsp {{comment.date}} </p>
       </div>
     </article>
 	 {% endfor %}
@@ -193,6 +190,7 @@
 <!--						<textarea placeholder="Message" name="txt_message" id="txt_message"></textarea>-->
 	<span id="alert"></span><span id="error"></span><br>
 						<button type="submit" class="site-btn" id="btn_submit">Send</button>
+
 						<input type="hidden" name="txt_recipe" value="{{single_recipe.id}}">
 						<br>
 

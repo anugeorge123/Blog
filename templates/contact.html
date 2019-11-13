@@ -4,6 +4,28 @@
 {% block content %}
 {% csrf_token %}
 
+	<style>
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 
 
   <div class="container">
@@ -44,76 +66,6 @@
 			<h2>Contact</h2>
 		</div>
 	</section>
-	<!-- Hero section end -->
-
-
-<!--	<section class="contact-section spad">-->
-<!--		<div class="container">-->
-<!--			<div class="row">-->
-<!--				<div class="col-lg-8">-->
-<!--					<div class="contact-form-warp">-->
-<!--						<h4>Leave a comment</h4>-->
-<!--						<form class="contact-form" id="contactform" >-->
-<!--							<div class="row">-->
-<!--								<span id ="alert"></span>	<span id ="error"></span><br>-->
-<!--								{{contactform_key}}-->
-<!--&lt;!&ndash;								<div class="col-md-6">&ndash;&gt;-->
-<!--&lt;!&ndash;									<input type="text" placeholder="Name" name="txt_name">&ndash;&gt;-->
-<!--&lt;!&ndash;								</div>&ndash;&gt;-->
-<!--&lt;!&ndash;								<div class="col-md-6">&ndash;&gt;-->
-<!--&lt;!&ndash;									<input type="text" placeholder="E-mail" name="txt_email">&ndash;&gt;-->
-<!--&lt;!&ndash;								</div>&ndash;&gt;-->
-<!--&lt;!&ndash;								<div class="col-md-12">&ndash;&gt;-->
-<!--&lt;!&ndash;									<input type="text" placeholder="Subject" name="txt_subject">&ndash;&gt;-->
-<!--&lt;!&ndash;									<textarea placeholder="Message" name="txt_message"></textarea>&ndash;&gt;-->
-
-<!--									<button class="site-btn" id="btn_send">Send</button>-->
-
-<!--								</div>-->
-<!--							</div>-->
-<!--						</form>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-lg-4">-->
-<!--					<div class="contact-logo">-->
-<!--						<a href="/"	><img src="{% static 'img/logo.png' %}" alt=""></a>-->
-<!--					</div>-->
-<!--					<div class="contact-info">-->
-<!--						<ul class="ct-list">-->
-<!--							<li>-->
-<!--								<h6>Address:</h6>-->
-<!--								<p>481 Creekside Lane Avila</p>-->
-<!--								<p>Beach, CA 93424</p>-->
-<!--							</li>-->
-<!--							<li>-->
-<!--								<h6>Phone:</h6>-->
-<!--								<p>+53 345 7953 32453</p>-->
-<!--								<p>+53 345 7557 822112</p>-->
-<!--							</li>-->
-<!--							<li>-->
-<!--								<h6>Email:</h6>-->
-<!--								<p>yourmail@gmail.com</p>-->
-<!--							</li>-->
-<!--						</ul>-->
-<!--						<div class="contact-social">-->
-<!--							{% for icon in socialicon %}-->
-<!--							<a href="{{icon.social_url}}"  target="_blank" ><i class="{{icon.icon_name}}"></i></a>-->
-<!--							{% endfor %}-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		-->
-<!--		-->
-<!--		-->
-<!--		-->
-<!--		-->
-
-
-
-
-
-
 
 
 		<section class="contact-section spad">
@@ -123,23 +75,19 @@
 					<div class="contact-form-warp">
 						<h4>Leave a comment</h4>
 						<form class="contact-form" id="contactform" method="post">
-<!--							<span id ="alert"></span>	<span id ="error"></span><br>-->
+						<!--<span id ="alert"></span>	<span id ="error"></span><br>-->
 							<div class="row">
 								<div class="col-md-12">
 										{{contactform_key}}
-									<button class="site-btn" id="btn_send">Send</button>
+									<button class="site-btn" id="btn_send" name="btn_send" >Send</button>
+									<button class="site-btn" type="button" disabled>
+									  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+									  Loading...
+									</button>
 
 
-									<div class="container">
-									  <div class="item-1"></div>
-									  <div class="item-2"></div>
-									  <div class="item-3"></div>
-									  <div class="item-4"></div>
-									  <div class="item-5"></div>
-									</div>
-
-									<div class="alert alert-success" role="alert" id="alert"></div>
-
+									<div class="alert alert-success" role="alert" id="success_alert" style="display:none;"></div>
+									<div class="alert alert-danger" role="alert" id="failure_alert" style="display:block;"></div>
 
 
 								</div>
@@ -157,12 +105,11 @@
 							<li>
 								<h6>Address:</h6>
 								<p>{{i.address}}</p>
-								<p>Beach, CA 93424</p>
+
 							</li>
 							<li>
 								<h6>Phone:</h6>
 								<p>{{i.phone}}</p>
-								<p>+53 345 7557 822112</p>
 							</li>
 							<li>
 								<h6>Email:</h6>
@@ -181,74 +128,11 @@
 
 
 
-
-
-
-
-
-
-
-
-			<!-- map -->
-<!--			<div class="location-map" id="map-canvas"></div>-->
-<!--		</div>-->
 		<div class="location-map" id="map-canvas"></div>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWTIlluowDL-X4HbYQt3aDw_oi2JP0Krc"></script>
             <script src="{% static 'js/map.js' %}"></script>
         </div>
+
 	</section>
-<!--	<script src="{% static 'js/map.js' %}"></script>-->
 
 {% endblock%}
-	<!-- Gallery section end -->
-
-
-<!--	&lt;!&ndash; Footer section  &ndash;&gt;-->
-<!--	<footer class="footer-section set-bg" data-setbg="img/footer-bg.jpg">-->
-<!--		<div class="container-fluid">-->
-<!--			<div class="row">-->
-<!--				<div class="col-lg-6">-->
-<!--					<div class="footer-logo">-->
-<!--						<img src="img/logo.png" alt="">-->
-<!--					</div>-->
-<!--					<div class="footer-social">-->
-<!--						<a href="#"><i class="fa fa-pinterest"></i></a>-->
-<!--						<a href="#"><i class="fa fa-facebook"></i></a>-->
-<!--						<a href="#"><i class="fa fa-twitter"></i></a>-->
-<!--						<a href="#"><i class="fa fa-dribbble"></i></a>-->
-<!--						<a href="#"><i class="fa fa-behance"></i></a>-->
-<!--						<a href="#"><i class="fa fa-linkedin"></i></a>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-lg-6 text-lg-right">-->
-<!--					<ul class="footer-menu">-->
-<!--						<li><a href="#">Home</a></li>-->
-<!--						<li><a href="#">Features</a></li>-->
-<!--						<li><a href="#">Receipies</a></li>-->
-<!--						<li><a href="#">Reviews</a></li>-->
-<!--						<li><a href="#">Contact</a></li>-->
-<!--					</ul>-->
-<!--					<p class="copyright">&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-<!--Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
-<!--&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-<!--</p>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</footer>-->
-<!--	&lt;!&ndash; Footer section end &ndash;&gt;-->
-
-
-
-<!--	&lt;!&ndash;====== Javascripts & Jquery ======&ndash;&gt;-->
-<!--	<script src="js/jquery-3.2.1.min.js"></script>-->
-<!--	<script src="js/owl.carousel.min.js"></script>-->
-<!--	<script src="js/main.js"></script>-->
-
-
-<!--	&lt;!&ndash; load for map &ndash;&gt;-->
-<!--	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWTIlluowDL-X4HbYQt3aDw_oi2JP0Krc"></script>-->
-<!--	<script src="js/map.js"></script>-->
-<!--	-->
-<!--</body>-->
-<!--</html>-->

@@ -21,6 +21,11 @@ import json
 from django.db.models import Q
 from django.core.paginator import Paginator
 
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from django.template.loader import render_to_string
+
 
 class Home(View):
 
@@ -37,10 +42,13 @@ class Home(View):
         query_imageslider = ImageSlider.objects.all()
         query_toprated = Rating.objects.all().order_by('-average')[:5]
 
+
         for i in query_toprated:
             star_average = i.average
-            star_dict[i] = range(i.average)
-
+            # star_dict[i] = range(i.average)
+            faded_stars = 5 - i.average
+            star_dict[i]=faded_stars
+        print("faded stars",star_dict)
         return render(request, "index.html",
                       {'id': form, 'log': login, 'product_images': query_img, 'slider_details': query_background,
                        'socialicon': query_icons, 'sliderimage': query_imageslider, 'toprated': query_toprated,
@@ -220,7 +228,7 @@ class ContactView(View):
     def post(self, request):
         conta = {}
         contact_form = CotactForm(request.POST)
-        print("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", contact_form.errors)
+        print("error-------", contact_form.errors)
         if contact_form.is_valid():
             name = contact_form.cleaned_data['name']
             print("name : ",name)
@@ -237,6 +245,12 @@ class ContactView(View):
                     send_mail('subject', message,  email, ['anugeorge.cst@gmail.com'], fail_silently=False)
                     query_contact = Contact.objects.create(contact_name = name, contact_email = email, contact_subject = subject, contact_message = message)
                     print(query_contact)
+
+                    subject, from_email, to = subject, email, 'itsmeanugeorge123@gmail.com'
+                    html_content = render_to_string('email.html', {'username': name})
+                    msg = EmailMultiAlternatives(subject, message, from_email, [to])
+                    msg.attach_alternative(html_content, "text/html")
+                    msg.send()
                     # query_contact.save()
                     conta["val"] = "success"
                 else:
@@ -263,14 +277,10 @@ class RecipeSingle(DetailView):
         data['comments'] = Review.objects.all().order_by('-id')[:3]
         data['count'] = Review.objects.all().count()
         data['comment_key']=CommentForm()
+
         return data
 
 class Comments(View):
-
-    # def get(self, request):
-    #     comment_form = CommentForm()
-    #     print("///=========",comment_form)
-    #     return render(request, "recipe_single.html",{'comment_key':comment_form})
 
     def post(self, request):
         n=0
@@ -301,6 +311,8 @@ class Comments(View):
                                         rate=None)
                    query_save.save()
                    comm["val"] = "success"
+                   comm['msg'] = message
+                   comm['name'] = name
                    return HttpResponse(json.dumps(comm), content_type="application/json")
                 else:
                     query_save = Review(recipe=recipe_name, name=name, email=email, subject=subject, message=message, rate=rate)
